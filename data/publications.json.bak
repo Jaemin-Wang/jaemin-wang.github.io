@@ -178,7 +178,7 @@
       "Hyoung Seop Kim"
     ],
     "journal": "Journal of Korean Powder Metallurgy Institute",
-    "year": 2026,
+    "year": 2024,
     "volume": "31",
     "issue": "3",
     "pages": "243-254",
@@ -192,6 +192,552 @@
     ],
     "corresponding_author": [
       "Hyoung Seop Kim"
+    ]
+  },
+  {
+    "title": "A machine learning approach for predicting evaporation-induced composition variability in directed energy deposition in-situ alloying",
+    "authors": [
+      "Jaemin Wang",
+      "Eun Seong Kim",
+      "Hyoung Seop Kim",
+      "Byeong-Joo Lee"
+    ],
+    "journal": "Additive Manufacturing",
+    "year": 2024,
+    "volume": "92",
+    "issue": "",
+    "pages": "104384",
+    "featured": true,
+    "doi": "https://doi.org/10.1016/j.addma.2024.104384",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Jaemin Wang",
+      "Eun Seong Kim"
+    ],
+    "corresponding_author": [
+      "Hyoung Seop Kim",
+      "Byeong-Joo Lee"
+    ]
+  },
+  {
+    "title": "Cellular structure assisted enhanced deformation-induced martensitic transformation in laser-directed energy deposited ferrous medium-entropy alloy",
+    "authors": [
+      "Eun Seong Kim",
+      "Soung Yeoul Ahn",
+      "Sang Guk Jeong",
+      "Eun-Ha Go",
+      "Jae Wung Bae",
+      "Soon-Jik Hong",
+      "Jaemin Wang",
+      "Byeong-Joo Lee",
+      "Gangaraju Manogna Karthik",
+      "Hyoung Seop Kim"
+    ],
+    "journal": "Materials Science and Engineering: A",
+    "year": 2025,
+    "volume": "922",
+    "issue": "",
+    "pages": "147631",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.msea.2024.147631",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Eun Seong Kim"
+    ],
+    "corresponding_author": [
+      "Gangaraju Manogna Karthik",
+      "Hyoung Seop Kim"
+    ]
+  },
+  {
+    "title": "Activating metastability engineering via control of initial microstructure in C-added CoCrFeNiMo medium-entropy alloy: in situ X-ray diffraction study",
+    "authors": [
+      "Hyeonseok Kwon",
+      "Jae Heung Lee",
+      "Ji Yeong Lee",
+      "Gang Hee Gu",
+      "Sang Guk Jeong",
+      "Changwan Ha",
+      "Jaemin Wang",
+      "Byeong-Joo Lee",
+      "Emad Mawaad",
+      "Sangbong Yi",
+      "Hyoung Seop Kim"
+    ],
+    "journal": "Materials Science and Engineering: A",
+    "year": 2025,
+    "volume": "924",
+    "issue": "",
+    "pages": "147797",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.msea.2025.147797",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Hyeonseok Kwon"
+    ],
+    "corresponding_author": [
+      "Sangbong Yi",
+      "Hyoung Seop Kim"
+    ]
+  },
+  {
+    "title": "Regulation of cryogenic mechanical behaviors of C-added non-equiatomic CoCrFeNiMo ferrous medium-entropy alloy via control of initial microstructure",
+    "authors": [
+      "Ji Yeong Lee",
+      "Hyeonseok Kwon",
+      "Jae Heung Lee",
+      "Jihye Kwon",
+      "Jaemin Wang",
+      "Jae Wung Bae",
+      "Jongun Moon",
+      "Byeong-Joo Lee",
+      "Yoon-Uk Heo",
+      "Hyoung Seop Kim"
+    ],
+    "journal": "Journal of Materials Science & Technology",
+    "year": 2025,
+    "volume": "208",
+    "issue": "",
+    "pages": "141-151",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.jmst.2024.05.003",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Ji Yeong Lee"
+    ],
+    "corresponding_author": [
+      "Ji Yeong Lee",
+      "Hyeonseok Kwon",
+      "Hyoung Seop Kim"
+    ]
+  },
+  {
+    "title": "Interpretable and physics-informed modeling of solidification in alloy systems: A generalized framework for multi-component prediction",
+    "authors": [
+      "Jaemin Wang",
+      "Hyeonseok Kwon",
+      "Sang-Ho Oh",
+      "Hyoung Seop Kim",
+      "Byeong-Joo Lee"
+    ],
+    "journal": "Acta Materialia",
+    "year": 2025,
+    "volume": "286",
+    "issue": "",
+    "pages": "120716",
+    "featured": true,
+    "doi": "https://doi.org/10.1016/j.actamat.2025.120716",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Jaemin Wang"
+    ],
+    "corresponding_author": [
+      "Byeong-Joo Lee"
+    ]
+  },
+  {
+    "title": "Multiscale computational model of TWIP and TRIP in medium/high entropy alloys",
+    "authors": [
+      "Y-Z Liu",
+      "Jaemin Wang",
+      "Sang-Ho Oh",
+      "S-P Hu",
+      "W Fu",
+      "X-G Song",
+      "Byeong-Joo Lee"
+    ],
+    "journal": "Journal of Alloys and Compounds",
+    "year": 2025,
+    "volume": "1022",
+    "issue": "",
+    "pages": "179770",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.jallcom.2025.179770",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Y-Z Liu",
+      "Jaemin Wang"
+    ],
+    "corresponding_author": [
+      "S-P Hu",
+      "X-G Song",
+      "Byeong-Joo Lee"
+    ]
+  },
+  {
+    "title": "Lüders band-assisted high uniform ductility in ultrastrong ferrous medium-entropy alloy via hierarchical microstructure",
+    "authors": [
+      "Hyeonseok Kwon",
+      "Jae Heung Lee",
+      "Alireza Zargaran",
+      "Stefanus Harjo",
+      "Wu Gong",
+      "Jaemin Wang",
+      "Gang Hee Gu",
+      "Byeong-Joo Lee",
+      "Jae Wung Bae",
+      "Hyoung Seop Kim"
+    ],
+    "journal": "International Journal of Plasticity",
+    "year": 2025,
+    "volume": "190",
+    "issue": "",
+    "pages": "104378",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.ijplas.2025.104378",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Hyeonseok Kwon"
+    ],
+    "corresponding_author": [
+      "Alireza Zargaran",
+      "Jae Wung Bae",
+      "Hyoung Seop Kim"
+    ]
+  },
+  {
+    "title": "Multiscale computational framework linking alloy composition to microstructure evolution via machine learning and nanoscale analysis",
+    "authors": [
+      "Jaemin Wang",
+      "Hyeonseok Kwon",
+      "Sang-Ho Oh",
+      "Jae Heung Lee",
+      "Dae Won Yun",
+      "Hyungsoo Lee",
+      "Seong-Moon Seo",
+      "Young-Soo Yoo",
+      "Hi Won Jeong",
+      "Hyoung Seop Kim",
+      "Byeong-Joo Lee"
+    ],
+    "journal": "npj Computational Materials",
+    "year": 2025,
+    "volume": "11",
+    "issue": "1",
+    "pages": "230",
+    "featured": true,
+    "doi": "https://doi.org/10.1038/s41524-025-01730-2",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Jaemin Wang"
+    ],
+    "corresponding_author": [
+      "Byeong-Joo Lee"
+    ]
+  },
+  {
+    "title": "Discovering elemental effects on hydrogen storage in TiMn2-type alloys using explainable machine learning",
+    "authors": [
+      "Jaemin Wang",
+      "Si-Won Jin",
+      "Young-Kook Lee",
+      "Jae-Hyeok Shim",
+      "Byeong-Joo Lee"
+    ],
+    "journal": "Acta Materialia",
+    "year": 2025,
+    "volume": "296",
+    "issue": "",
+    "pages": "121297",
+    "featured": true,
+    "doi": "https://doi.org/10.1016/j.actamat.2025.121297",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Jaemin Wang"
+    ],
+    "corresponding_author": [
+      "Byeong-Joo Lee"
+    ]
+  },
+  {
+    "title": "Exploring nanomechanical characteristics of (CoCrFeMnNi) 100-xNx high-entropy nitride ceramics: An integrated experimental and computational approach",
+    "authors": [
+      "Gang Hee Gu",
+      "Sung-Gyu Heo",
+      "Shin Hyun Kim",
+      "Jaemin Wang",
+      "Goo-Hwan Jeong",
+      "Donghwa Lee",
+      "Byeong-Joo Lee",
+      "Wei Wei",
+      "Hyoung Seop Kim"
+    ],
+    "journal": "Materials Characterization",
+    "year": 2025,
+    "volume": "229",
+    "issue": "",
+    "pages": "115597",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.matchar.2025.115597",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Gang Hee Gu"
+    ],
+    "corresponding_author": [
+      "Hyoung Seop Kim"
+    ]
+  },
+  {
+    "title": "Harnessing competitive interplay between precipitation and lattice distortion for strong and ductile medium-entropy alloy",
+    "authors": [
+      "Jae Heung Lee",
+      "Hyeonseok Kwon",
+      "Gang Hee Gu",
+      "Ji Yeong Lee",
+      "Sang Guk Jeong",
+      "Emad Maawad",
+      "Changwan Ha",
+      "Jaemin Wang",
+      "Byeong-Joo Lee",
+      "Sangbong Yi",
+      "Takayoshi Nakano",
+      "Hyoung Seop Kim"
+    ],
+    "journal": "Materials Science and Engineering: A",
+    "year": 2025,
+    "volume": "942",
+    "issue": "",
+    "pages": "148642",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.msea.2025.148642",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Jae Heung Lee"
+    ],
+    "corresponding_author": [
+      "Hyeonseok Kwon",
+      "Sangbong Yi",
+      "Hyoung Seop Kim"
+    ]
+  },
+  {
+    "title": "Activating TRIP via precipitation-induced matrix modification in Fe-based medium-entropy alloys",
+    "authors": [
+      "Bon Woo Koo",
+      "Sujung Son",
+      "Jae Heung Lee",
+      "Jaemin Wang",
+      "Hyojin Park",
+      "Young-Kook Lee",
+      "Byeong-Joo Lee",
+      "Hyoung Seop Kim"
+    ],
+    "journal": "Materials Science and Engineering: A",
+    "year": 2025,
+    "volume": "942",
+    "issue": "",
+    "pages": "148693",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.msea.2025.148693",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Bon Woo Koo"
+    ],
+    "corresponding_author": [
+      "Sujung Son",
+      "Hyoung Seop Kim"
+    ]
+  },
+  {
+    "title": "Intragranular-heterostructured FeCuNi medium-entropy alloy through immiscibility design approach",
+    "authors": [
+      "Peyman Asghari-Rad",
+      "Hyeonseok Kwon",
+      "Alireza Zargaran",
+      "Jae Bok Seol",
+      "Jaemin Wang",
+      "Nhung Thi-Cam Nguyen",
+      "Praveen Sathiyamoorthi",
+      "Young-Kook Lee",
+      "Hyoung Seop Kim"
+    ],
+    "journal": "Journal of Materials Science & Technology",
+    "year": 2025,
+    "volume": "262",
+    "issue": "",
+    "pages": "270-284",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.jmst.2025.10.059",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Peyman Asghari-Rad",
+      "Hyeonseok Kwon"
+    ],
+    "corresponding_author": [
+      "Hyoung Seop Kim"
+    ]
+  },
+  {
+    "title": "Data-Driven analysis relates mechanical properties to pore morphology in laser powder bed fusion",
+    "authors": [
+      "Jaemin Wang",
+      "Seungyeon Lee",
+      "Yeon Woo Kim",
+      "Kyung Tae Kim",
+      "Jeong Min Park",
+      "Dierk Raabe"
+    ],
+    "journal": "Acta Materialia",
+    "year": 2026,
+    "volume": "304",
+    "issue": "",
+    "pages": "121751",
+    "featured": true,
+    "doi": "https://doi.org/10.1016/j.actamat.2025.121751",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Jaemin Wang"
+    ],
+    "corresponding_author": [
+      "Jeong Min Park",
+      "Dierk Raabe"
+    ]
+  },
+  {
+    "title": "Sigma phase formation and chemical short-range ordering during the isochronal annealing of a metastable medium-entropy alloy",
+    "authors": [
+      "Ibrahim Ondicho",
+      "Lachlan Smillie",
+      "Majid Laleh",
+      "Jaemin Wang",
+      "Jae Heung Lee",
+      "Hyeonseok Kwon",
+      "Byeong-Joo Lee",
+      "Germanas Peleckis",
+      "Hyoung Seop Kim",
+      "Azdiar A Gazder"
+    ],
+    "journal": "Journal of Materials Science & Technology",
+    "year": 2025,
+    "volume": "237",
+    "issue": "",
+    "pages": "97-114",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.jmst.2025.01.055",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Ibrahim Ondicho"
+    ],
+    "corresponding_author": [
+      "Ibrahim Ondicho"
+    ]
+  },
+  {
+    "title": "Thermodynamic modeling of hydrogenation of C14 TiMnx alloys",
+    "authors": [
+      "Sang-Ho Oh",
+      "MinAh Baek",
+      "Jaemin Wang",
+      "Seughyo Noh",
+      "Minwoo Kang",
+      "Jihye Park",
+      "Do Sung Lee",
+      "Young-Su Lee",
+      "Taewook Na",
+      "Byeong-Joo Lee"
+    ],
+    "journal": "Calphad",
+    "year": 2025,
+    "volume": "91",
+    "issue": "",
+    "pages": "102871",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.calphad.2025.102871",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Sang-Ho Oh"
+    ],
+    "corresponding_author": [
+      "Byeong-Joo Lee"
+    ]
+  },
+  {
+    "title": "Compositional complexity buffers free-volume sensitivity and serrated flow in metallic glasses",
+    "authors": [
+      "Anurag Bajpai",
+      "Jaemin Wang",
+      "Dierk Raabe"
+    ],
+    "journal": "npj Computational Materials",
+    "year": 2026,
+    "volume": "12",
+    "issue": "",
+    "pages": "59",
+    "featured": true,
+    "doi": "https://doi.org/10.1038/s41524-025-01933-7",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Anurag Bajpai",
+      "Jaemin Wang"
+    ],
+    "corresponding_author": [
+      "Anurag Bajpai",
+      "Dierk Raabe"
+    ]
+  },
+  {
+    "title": "Effect of ageing on the microstructure, mechanical properties, and deformation behavior of a recrystallised metastable medium-entropy alloy",
+    "authors": [
+      "Ibrahim Ondicho",
+      "Majid Laleh",
+      "Lachlan Smillie",
+      "Jaemin Wang",
+      "Jae Heung Lee",
+      "Hyeonseok Kwon",
+      "Rui Wang",
+      "Germanas Peleckis",
+      "Hyoung Seop Kim",
+      "Azdiar A Gazder"
+    ],
+    "journal": "Materials Science and Engineering: A",
+    "year": 2026,
+    "volume": "957",
+    "issue": "",
+    "pages": "149937",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.msea.2026.149937",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Ibrahim Ondicho"
+    ],
+    "corresponding_author": [
+      "Ibrahim Ondicho"
     ]
   }
 ]

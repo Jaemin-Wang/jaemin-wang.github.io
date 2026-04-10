@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIM Lab | Alloy Informatics and Modeling Laboratory</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #1d4ed8;
+      --primary-soft: #dbeafe;
+      --accent: #0f172a;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      --radius: 16px;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .site-header-inner {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .logo-wrap {
+      min-width: 0;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+    }
+
+    .logo-img-wrap {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+    }
+
+    .logo-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: white;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      border-radius: 8px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .lab-name {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--accent);
+    }
+
+    .lab-full {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .lab-kr {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.15s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--primary);
+    }
+
+    .hero {
+      padding: 4.2rem 0 3rem;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .hero-side {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.6rem;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 0.9rem;
+      min-height: 56px;
+    }
+
+    .hero-kicker img {
+      max-width: 100%;
+      width: min(360px, 100%);
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .school-logo-placeholder {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0.9rem;
+      border-radius: 12px;
+      background: #eef2f7;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      min-height: 56px;
+    }
+
+    .hero h1 {
+      margin: 0 0 0.85rem;
+      font-size: clamp(2.2rem, 4.8vw, 4rem);
+      line-height: 1.1;
+      color: var(--accent);
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--text);
+      font-size: 1.03rem;
+    }
+
+    .hero-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1.15rem;
+    }
+
+    .chip {
+      display: inline-block;
+      font-size: 0.82rem;
+      padding: 0.32rem 0.62rem;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1.35rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--accent);
+      font-size: 0.93rem;
+      font-weight: 700;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary-soft);
+      border-color: #c7d2fe;
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .hero-side h2 {
+      margin: 0 0 0.9rem;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .mini-news-list {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .mini-news-link {
+        display: block;
+        padding-top: 0.6rem;
+        border-top: 1px solid var(--line);
+    }
+
+    .mini-news-item {
+        padding: 0;
+        border: none;
+    }
+
+    .mini-news-item:first-child {
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    .mini-news-link:hover .mini-news-title {
+      color: var(--primary);
+    }
+
+    .mini-news-date {
+      margin: 0 0 0.15rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .mini-news-title {
+      margin: 0;
+      font-size: 0.98rem;
+      line-height: 1.35;
+      color: var(--accent);
+      transition: color 0.15s ease;
+    }
+
+    .section {
+      padding: 0 0 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .section-header p {
+      margin: 0.3rem 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 700px;
+    }
+
+    .section-link {
+      color: var(--primary);
+      font-size: 0.94rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.2rem;
+    }
+
+    .pub-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .pub-item {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 1rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .pub-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .pub-title {
+      margin: 0 0 0.35rem;
+      color: var(--accent);
+      font-size: 1.02rem;
+      line-height: 1.4;
+    }
+
+    .pub-authors,
+    .pub-meta {
+      margin: 0.18rem 0;
+      font-size: 0.94rem;
+    }
+
+    .pub-meta {
+      color: var(--muted);
+    }
+
+    .author-name.lab-member {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .author-mark {
+      font-size: 0.88em;
+      vertical-align: super;
+      margin-left: 0.05rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .loading-state,
+    .empty-state,
+    .error-state {
+      color: var(--muted);
+      padding: 0.75rem 0;
+    }
+
+    .error-state {
+      color: #b91c1c;
+    }
+
+    footer {
+      padding: 1rem 0 2.5rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    @media (max-width: 900px) {
+      .site-header-inner {
+        align-items: flex-start;
+        padding: 0.9rem 0;
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .lab-full,
+      .lab-kr {
+        display: none;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-kicker img {
+        width: min(280px, 100%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="logo-wrap">
+        <a href="index.html" class="logo-link" aria-label="Go to home">
+          <div class="logo-img-wrap">
+            <img src="lab logo_web.png" alt="AIM Lab logo" onerror="handleLogoError(this)" />
+            <div class="logo-placeholder">AIM</div>
+          </div>
+          <div class="logo-text">
+            <span class="lab-name">AIM Lab</span>
+            <span class="lab-full">Alloy Informatics and Modeling Laboratory</span>
+            <span class="lab-kr">전산재료 연구실</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html" class="active">Home</a>
+        <a href="research.html">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="people.html">People</a>
+        <a href="news.html">News</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-main">
+          <div class="hero-kicker">
+            <img src="knu logo.jpg" alt="Kyungpook National University logo" onerror="handleSchoolLogoError(this)" />
+            <div class="school-logo-placeholder">Kyungpook National University</div>
+          </div>
+
+          <h1>AIM Lab</h1>
+          <p>
+            Alloy Informatics and Modeling Laboratory develops interpretable and physics-grounded
+            computational frameworks for materials design. <br> We connect AI, thermodynamics, atomistic
+            simulation, and materials theory to accelerate alloy discovery and understanding. 
+          </p>
+
+          <div class="hero-keywords">
+            <span class="chip">AI for Materials Science</span>
+            <span class="chip">Physics-based Machine Learning</span>
+            <span class="chip">Computational Materials Science</span>
+            <span class="chip">Atomistic Simulation</span>
+            <span class="chip">Thermodynamics</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="publications.html">View Publications</a>
+            <a class="btn" href="research.html">Explore Research</a>
+            <a class="btn" href="news.html">Recent News</a>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <h2>Recent News</h2>
+          <div id="hero-news-preview" class="mini-news-list">
+            <div class="loading-state">Loading recent news...</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Featured Publications</h2>
+          <p>Selected papers from AIM Lab.</p>
+        </div>
+        <a class="section-link" href="publications.html">View all publications →</a>
+      </div>
+
+      <div class="section-card">
+        <div id="featured-publications-preview" class="pub-list">
+          <div class="loading-state">Loading featured publications...</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Recent Publications</h2>
+          <p>Recently published work from AIM Lab and collaborators.</p>
+        </div>
+        <a class="section-link" href="publications.html">View all publications →</a>
+      </div>
+
+      <div class="section-card">
+        <div id="recent-publications-preview" class="pub-list">
+          <div class="loading-state">Loading recent publications...</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    © AIM Lab · Alloy Informatics and Modeling Laboratory
+  </footer>
+
+  <script>
+    const PUBLICATIONS_URL = "data/publications.json";
+    const NEWS_URL = "data/news.json";
+
+    const featuredPublicationsPreviewEl = document.getElementById("featured-publications-preview");
+    const recentPublicationsPreviewEl = document.getElementById("recent-publications-preview");
+    const heroNewsPreviewEl = document.getElementById("hero-news-preview");
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function normalizeArray(value) {
+      return Array.isArray(value) ? value : [];
+    }
+
+    function normalizeName(name) {
+      return String(name || "").toLowerCase().replace(/\s+/g, " ").trim();
+    }
+
+    function handleLogoError(img) {
+      img.style.display = "none";
+      const placeholder = img.parentElement.querySelector(".logo-placeholder");
+      if (placeholder) placeholder.style.display = "flex";
+    }
+
+    function handleSchoolLogoError(img) {
+      img.style.display = "none";
+      const placeholder = img.parentElement.querySelector(".school-logo-placeholder");
+      if (placeholder) placeholder.style.display = "flex";
+    }
+
+    window.handleLogoError = handleLogoError;
+    window.handleSchoolLogoError = handleSchoolLogoError;
+
+    async function safeFetch(url) {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${url}: ${response.status}`);
+      }
+      return response.json();
+    }
+
+    function normalizePublication(pub) {
+      return {
+        title: pub.title || "",
+        authors: Array.isArray(pub.authors) ? pub.authors : [],
+        journal: pub.journal || "",
+        year: Number(pub.year) || 0,
+        volume: pub.volume || "",
+        issue: pub.issue || "",
+        pages: pub.pages || "",
+        featured: Boolean(pub.featured),
+        doi: pub.doi || "",
+        lab_member: normalizeArray(pub.lab_member),
+        first_author: normalizeArray(pub.first_author),
+        corresponding_author: normalizeArray(pub.corresponding_author)
+      };
+    }
+
+    function renderAuthors(pub) {
+      const labMembers = new Set(pub.lab_member.map(normalizeName));
+      const firstAuthors = new Set(pub.first_author.map(normalizeName));
+      const correspondingAuthors = new Set(pub.corresponding_author.map(normalizeName));
+
+      return pub.authors.map((author) => {
+        const normalized = normalizeName(author);
+        const isLabMember = labMembers.has(normalized);
+        const isFirstAuthor = firstAuthors.has(normalized);
+        const isCorresponding = correspondingAuthors.has(normalized);
+
+        let marks = "";
+        if (isFirstAuthor) marks += '<span class="author-mark">†</span>';
+        if (isCorresponding) marks += '<span class="author-mark">*</span>';
+
+        return `<span class="author-name ${isLabMember ? "lab-member" : ""}">${escapeHtml(author)}${marks}</span>`;
+      }).join(", ");
+    }
+
+    function buildPublicationMeta(pub) {
+      const parts = [];
+      if (pub.journal) parts.push(pub.journal);
+      if (pub.year) parts.push(String(pub.year));
+      return parts.join(" · ");
+    }
+
+    function renderPublicationPreviewItem(pub) {
+      const content = `
+        <article class="pub-item">
+          <h3 class="pub-title">${escapeHtml(pub.title)}</h3>
+          <p class="pub-authors">${renderAuthors(pub)}</p>
+          <p class="pub-meta">${escapeHtml(buildPublicationMeta(pub))}</p>
+        </article>
+      `;
+
+      if (pub.doi) {
+        return `<a href="${escapeHtml(pub.doi)}" target="_blank" rel="noopener noreferrer">${content}</a>`;
+      }
+      return content;
+    }
+
+    function normalizeNewsItem(item) {
+      return {
+        date: item.date || "",
+        title: item.title || "",
+        link: item.link || ""
+      };
+    }
+
+    function formatDate(dateString) {
+      if (!dateString) return "";
+      const date = new Date(dateString);
+      if (Number.isNaN(date.getTime())) return dateString;
+      return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      });
+    }
+
+    function renderMiniNewsItem(item) {
+      return `
+        <a href="news.html" class="mini-news-link">
+          <article class="mini-news-item">
+            ${item.date ? `<p class="mini-news-date">${escapeHtml(formatDate(item.date))}</p>` : ""}
+            <h3 class="mini-news-title">${escapeHtml(item.title)}</h3>
+          </article>
+        </a>
+      `;
+    }
+
+    async function loadFeaturedPublicationsPreview() {
+      try {
+        const data = await safeFetch(PUBLICATIONS_URL);
+        const items = data
+          .map(normalizePublication)
+          .filter(item => item.featured)
+          .slice(0, 4)
+          .reverse();
+
+        if (!items.length) {
+          featuredPublicationsPreviewEl.innerHTML = `<div class="empty-state">No featured publications available.</div>`;
+          return;
+        }
+
+        featuredPublicationsPreviewEl.innerHTML = items.map(renderPublicationPreviewItem).join("");
+      } catch (error) {
+        console.error(error);
+        featuredPublicationsPreviewEl.innerHTML = `<div class="error-state">Failed to load featured publications.</div>`;
+      }
+    }
+
+    async function loadRecentPublicationsPreview() {
+      try {
+        const data = await safeFetch(PUBLICATIONS_URL);
+        const items = data
+          .map(normalizePublication)
+          .slice(0, 4)
+          .reverse();
+
+        if (!items.length) {
+          recentPublicationsPreviewEl.innerHTML = `<div class="empty-state">No recent publications available.</div>`;
+          return;
+        }
+
+        recentPublicationsPreviewEl.innerHTML = items.map(renderPublicationPreviewItem).join("");
+      } catch (error) {
+        console.error(error);
+        recentPublicationsPreviewEl.innerHTML = `<div class="error-state">Failed to load recent publications.</div>`;
+      }
+    }
+
+    async function loadNewsPreview() {
+      try {
+        const data = await safeFetch(NEWS_URL);
+        const items = data
+          .map(normalizeNewsItem)
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0, 4);
+
+        if (!items.length) {
+          heroNewsPreviewEl.innerHTML = `<div class="empty-state">No recent news available.</div>`;
+          return;
+        }
+
+        heroNewsPreviewEl.innerHTML = items.map(renderMiniNewsItem).join("");
+      } catch (error) {
+        console.error(error);
+        heroNewsPreviewEl.innerHTML = `<div class="error-state">Failed to load recent news.</div>`;
+      }
+    }
+
+    loadFeaturedPublicationsPreview();
+    loadRecentPublicationsPreview();
+    loadNewsPreview();
+  </script>
+</body>
+</html>

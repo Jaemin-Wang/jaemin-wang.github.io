@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research | AIM Lab</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #1d4ed8;
+      --primary-soft: #dbeafe;
+      --accent: #0f172a;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      --radius: 16px;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .site-header-inner {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .logo-wrap {
+      min-width: 0;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+    }
+
+    .logo-img-wrap {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+    }
+
+    .logo-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: white;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      border-radius: 8px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .lab-name {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--accent);
+    }
+
+    .lab-full {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .lab-kr {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.15s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--primary);
+    }
+
+    .page-header {
+      padding: 3.2rem 0 2rem;
+    }
+
+    .page-header h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      color: var(--accent);
+    }
+
+    .page-header p {
+      margin: 0;
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .research-overview {
+      margin: 0 0 2rem;
+      padding: 1.25rem 1.35rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .research-overview h2 {
+      margin: 0 0 0.65rem;
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    .research-overview p {
+      margin: 0;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .summary {
+      margin: 0 0 1.25rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .research-grid {
+      display: grid;
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .research-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      min-height: 240px;
+    }
+
+    .research-media {
+      background: #eef2f7;
+      border-right: 1px solid var(--line);
+      position: relative;
+      min-height: 100%;
+    }
+
+    .research-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #eef2f7;
+    }
+
+    .research-placeholder {
+      display: none;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #94a3b8;
+      background: linear-gradient(135deg, #eef2f7, #f8fafc);
+    }
+
+    .research-content {
+      padding: 1.25rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .research-title {
+      margin: 0;
+      font-size: 1.3rem;
+      line-height: 1.3;
+      color: var(--accent);
+    }
+
+    .research-subtitle {
+      margin: -0.15rem 0 0;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .research-description {
+      margin: 0;
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+
+    .keyword-row,
+    .method-row,
+    .topic-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .chip {
+      display: inline-block;
+      font-size: 0.82rem;
+      padding: 0.32rem 0.62rem;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+    }
+
+    .research-section-label {
+      margin: 0 0 0.35rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .loading-state,
+    .empty-state,
+    .error-state {
+      padding: 1rem 0.25rem;
+      color: var(--muted);
+    }
+
+    .error-state {
+      color: #b91c1c;
+    }
+
+    @media (max-width: 900px) {
+      .site-header-inner {
+        align-items: flex-start;
+        padding: 0.9rem 0;
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .research-card {
+        grid-template-columns: 1fr;
+      }
+
+      .research-media {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        min-height: 220px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .lab-full,
+      .lab-kr {
+        display: none;
+      }
+
+      .research-media {
+        min-height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="logo-wrap">
+        <a href="index.html" class="logo-link" aria-label="Go to home">
+          <div class="logo-img-wrap">
+            <img src="lab logo_web.png" alt="AIM Lab logo" onerror="handleLogoError(this)" />
+            <div class="logo-placeholder">AIM</div>
+          </div>
+          <div class="logo-text">
+            <span class="lab-name">AIM Lab</span>
+            <span class="lab-full">Alloy Informatics and Modeling Laboratory</span>
+            <span class="lab-kr">전산재료 연구실</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="research.html" class="active">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="people.html">People</a>
+        <a href="news.html">News</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <h1>Research</h1>
+      <p>
+        Introducing the research of AIM Lab.
+      </p>
+    </header>
+
+    <section class="research-overview">
+      <h2>Overview</h2>
+      <p>
+        Our research focuses on two main directions: AI for Materials Science and
+        Computational Materials Science. <br> We develop data-driven and physics-based models
+        for alloy design, microstructure prediction, phase stability, and property optimization,
+        <br> while maintaining physical interpretability and scientific insight.
+      </p>
+    </section>
+
+    <div class="summary" id="research-summary">Loading research themes...</div>
+
+    <section id="research-grid" class="research-grid">
+      <div class="loading-state">Loading research themes...</div>
+    </section>
+  </main>
+
+  <script>
+    const DATA_URL = "data/research.json";
+
+    const researchGridEl = document.getElementById("research-grid");
+    const summaryEl = document.getElementById("research-summary");
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function normalizeArray(value) {
+      return Array.isArray(value) ? value : [];
+    }
+
+    function normalizeResearchItem(item) {
+      return {
+        theme: item.theme || "",
+        subtitle: item.subtitle || "",
+        description: item.description || "",
+        keywords: normalizeArray(item.keywords),
+        methods: normalizeArray(item.methods),
+        topics: normalizeArray(item.topics)
+      };
+    }
+
+    function buildImageCandidates(theme) {
+      return [
+        `research_image/${theme}.jpg`,
+        `research_image/${theme}.png`,
+        `research_image/${theme}.gif`
+      ];
+    }
+
+    function renderChipRow(items) {
+      if (!items.length) return "";
+      return items.map(item => `<span class="chip">${escapeHtml(item)}</span>`).join("");
+    }
+
+    function renderResearchCard(item) {
+        const imageCandidates = buildImageCandidates(item.theme);
+
+        return `
+            <article class="research-card">
+            <div class="research-media">
+                <img
+                class="research-image"
+                src="${escapeHtml(imageCandidates[0])}"
+                alt="${escapeHtml(item.theme)} representative image"
+                data-candidates='${escapeHtml(JSON.stringify(imageCandidates))}'
+                data-index="0"
+                onerror="handleResearchImageError(this)"
+                />
+                <div class="research-placeholder">${escapeHtml(item.theme)}</div>
+            </div>
+
+            <div class="research-content">
+                <div>
+                <h2 class="research-title">${escapeHtml(item.theme)}</h2>
+                ${item.subtitle ? `<p class="research-subtitle">${escapeHtml(item.subtitle)}</p>` : ""}
+                </div>
+
+                ${item.description ? `<p class="research-description">${escapeHtml(item.description)}</p>` : ""}
+
+                ${item.keywords.length ? `
+                <div>
+                    <p class="research-section-label">Keywords</p>
+                    <div class="keyword-row">${renderChipRow(item.keywords)}</div>
+                </div>
+                ` : ""}
+
+                ${item.methods.length ? `
+                <div>
+                    <p class="research-section-label">Methods</p>
+                    <div class="method-row">${renderChipRow(item.methods)}</div>
+                </div>
+                ` : ""}
+
+                ${item.topics.length ? `
+                <div>
+                    <p class="research-section-label">Representative Topics</p>
+                    <div class="topic-row">${renderChipRow(item.topics)}</div>
+                </div>
+                ` : ""}
+            </div>
+            </article>
+        `;
+    }
+
+    async function loadResearch() {
+      try {
+        const response = await fetch(DATA_URL);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch research data: ${response.status}`);
+        }
+
+        const rawData = await response.json();
+        const researchItems = rawData.map(normalizeResearchItem);
+
+        if (!researchItems.length) {
+          researchGridEl.innerHTML = `<div class="empty-state">No research themes available.</div>`;
+          summaryEl.textContent = "0 research themes";
+          return;
+        }
+
+        researchGridEl.innerHTML = researchItems.map(renderResearchCard).join("");
+        summaryEl.textContent = `${researchItems.length} research themes`;
+      } catch (error) {
+        console.error(error);
+        researchGridEl.innerHTML = `
+          <div class="error-state">
+            Failed to load research themes. Make sure <code>data/research.json</code> exists
+            and that you are opening this site through a local server.
+          </div>
+        `;
+        summaryEl.textContent = "Failed to load research themes";
+      }
+    }
+
+    function handleResearchImageError(img) {
+        const candidates = JSON.parse(img.dataset.candidates || "[]");
+        let index = Number(img.dataset.index || 0);
+
+        index += 1;
+
+        if (index < candidates.length) {
+            img.dataset.index = String(index);
+            img.src = candidates[index];
+            return;
+        }
+
+        img.style.display = "none";
+        const placeholder = img.parentElement.querySelector(".research-placeholder");
+        if (placeholder) {
+            placeholder.style.display = "flex";
+        }
+    }
+
+    function handleLogoError(img) {
+      img.style.display = "none";
+      const placeholder = img.parentElement.querySelector(".logo-placeholder");
+      if (placeholder) {
+        placeholder.style.display = "flex";
+      }
+    }
+
+    window.handleResearchImageError = handleResearchImageError;
+    window.handleLogoError = handleLogoError;
+
+    loadResearch();
+  </script>
+</body>
+</html>

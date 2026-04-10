@@ -1,0 +1,54 @@
+[
+  {
+    "theme": "AI for Materials Science",
+    "subtitle": "Physics-based machine learning and explainable AI for materials design",
+    "description": "We develop interpretable and physics-based machine learning frameworks for alloy design, process optimization, and structure-property prediction. Our work emphasizes scientific interpretability, physically meaningful descriptors, and reliable inverse design strategies for accelerating materials discovery.",
+    "keywords": [
+      "Materials AI",
+      "Physics-based Machine Learning",
+      "Explainable AI",
+      "Inverse Design",
+      "Alloy Design"
+    ],
+    "methods": [
+      "Graph Neural Networks",
+      "XGBoost",
+      "SHAP",
+      "Neural Networks",
+      "Interpretable Modeling"
+    ],
+    "topics": [
+      "High-Entropy Alloy Design",
+      "Hydrogen Storage Alloy Discovery",
+      "Additive Manufacturing Optimization",
+      "Solidification Prediction",
+      "Microstructure-aware Design"
+    ]
+  },
+  {
+    "theme": "Computational Materials Science",
+    "subtitle": "Thermodynamics, atomistic simulation, and multiscale computational modeling",
+    "description": "We use computational materials science tools to understand alloy thermodynamics, phase stability, atomistic behavior, and microstructure evolution. Our research integrates CALPHAD, molecular dynamics, interatomic potentials, machine-learning potentials, and density functional theory to build predictive and physically grounded frameworks for advanced materials design.",
+    "keywords": [
+      "Computational Materials Science",
+      "Thermodynamics",
+      "Atomistic Simulation",
+      "Multiscale Modeling",
+      "Phase Stability"
+    ],
+    "methods": [
+      "CALPHAD",
+      "Molecular Dynamics",
+      "2NN MEAM",
+      "Machine Learning Potential",
+      "DFT"
+    ],
+    "topics": [
+      "Phase Diagram and Thermodynamic Modeling",
+      "Interatomic Potential Development",
+      "Microstructure Evolution",
+      "Diffusion and Precipitation",
+      "Composition-Structure-Property Relations"
+    ]
+  }
+]

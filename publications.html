@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications | AIM Lab</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #1d4ed8;
+      --primary-soft: #dbeafe;
+      --accent: #0f172a;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      --radius: 16px;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .lab-name {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--accent);
+    }
+
+    .lab-full {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .lab-kr {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .site-header-inner {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .logo-wrap {
+      min-width: 0;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+    }
+
+    .logo-wrap img {
+      height: 46px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .logo-img-wrap {
+        position: relative;
+        height: 46px;
+        width: 46px;
+        flex-shrink: 0;
+    }
+
+    .logo-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    .logo-placeholder {
+        position: absolute;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 0.9rem;
+        color: white;
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+        border-radius: 8px;
+    }
+
+    .site-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.15s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--primary);
+    }
+
+    .page-header {
+      padding: 3.2rem 0 2rem;
+    }
+
+    .page-header h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      color: var(--accent);
+    }
+
+    .page-header p {
+      margin: 0;
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .author-legend {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.28rem 0.6rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+
+    .legend-name {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1.75rem 0 1.25rem;
+    }
+
+    .tabs {
+      display: inline-flex;
+      gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.35rem;
+      box-shadow: var(--shadow);
+    }
+
+    .tab-btn {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .summary {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .panel {
+      display: none;
+      margin-bottom: 3rem;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .year-group + .year-group {
+      margin-top: 1.5rem;
+    }
+
+    .year-heading {
+      margin: 0 0 1rem;
+      font-size: 1.2rem;
+      color: var(--accent);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.5rem;
+    }
+
+    .pub-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .pub-card-link {
+      display: block;
+      color: inherit;
+    }
+
+    .pub-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem 1rem 0.95rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .pub-card-link .pub-item {
+      cursor: pointer;
+    }
+
+    .pub-card-link:hover .pub-item {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      border-color: #c7d2fe;
+    }
+
+    .pub-item.static:hover {
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .pub-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .featured-badge {
+      display: inline-block;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .doi-note {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .pub-title {
+      margin: 0 0 0.42rem;
+      font-size: 1.08rem;
+      line-height: 1.4;
+      color: var(--accent);
+    }
+
+    .pub-authors,
+    .pub-meta {
+      margin: 0.15rem 0;
+      font-size: 0.95rem;
+    }
+
+    .pub-authors {
+      color: var(--text);
+    }
+
+    .pub-meta {
+      color: var(--muted);
+    }
+
+    .author-name {
+      color: inherit;
+    }
+
+    .author-name.lab-member {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .author-mark {
+      font-size: 0.88em;
+      vertical-align: super;
+      margin-left: 0.05rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .loading-state,
+    .empty-state,
+    .error-state {
+      padding: 1rem 0.25rem;
+      color: var(--muted);
+    }
+
+    .error-state {
+      color: #b91c1c;
+    }
+
+    @media (max-width: 860px) {
+      .site-header-inner {
+        align-items: flex-start;
+        padding: 0.9rem 0;
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .toolbar {
+        align-items: flex-start;
+      }
+
+      .tabs {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .tab-btn {
+        flex: 1;
+        text-align: center;
+      }
+
+      .pub-top-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="logo-wrap">
+        <a href="index.html" class="logo-link" aria-label="Go to home">
+          
+          <div class="logo-img-wrap">
+            <img src="lab logo_web.png" alt="AIM Lab logo" onerror="handleLogoError(this)" />
+            <div class="logo-placeholder">AIM</div>
+          </div>  
+
+          <div class="logo-text">
+            <span class="lab-name">AIM Lab</span>
+            <span class="lab-full">Alloy Informatics and Modeling Laboratory</span>
+            <span class="lab-kr">전산재료 연구실</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="publications.html" class="active">Publications</a>
+        <a href="people.html">People</a>
+        <a href="news.html">News</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <h1>Publications</h1>
+      <p>
+        Selected and full publication list for AIM Lab.
+      </p>
+
+      <div class="author-legend" aria-label="Author notation legend">
+        <span class="legend-chip"><span class="legend-name">Bold</span> lab member</span>
+        <span class="legend-chip">† first author / co-first author</span>
+        <span class="legend-chip">* corresponding author</span>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="tabs" role="tablist" aria-label="Publication sections">
+        <button class="tab-btn active" data-tab="featured" role="tab" aria-selected="true">
+          Featured
+        </button>
+        <button class="tab-btn" data-tab="full" role="tab" aria-selected="false">
+          Full List
+        </button>
+      </div>
+      <div class="summary" id="pub-summary">Loading publications...</div>
+    </div>
+
+    <section id="featured-panel" class="panel active">
+      <div class="section-card">
+        <div id="featured-list" class="pub-list">
+          <div class="loading-state">Loading featured publications...</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="full-panel" class="panel">
+      <div class="section-card">
+        <div id="full-list">
+          <div class="loading-state">Loading full publication list...</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const DATA_URL = "data/publications.json";
+
+    const featuredListEl = document.getElementById("featured-list");
+    const fullListEl = document.getElementById("full-list");
+    const summaryEl = document.getElementById("pub-summary");
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const panels = {
+      featured: document.getElementById("featured-panel"),
+      full: document.getElementById("full-panel")
+    };
+
+    function handleLogoError(img) {
+        img.style.display = "none";
+        const placeholder = img.parentElement.querySelector(".logo-placeholder");
+        if (placeholder) {
+            placeholder.style.display = "flex";
+        }
+    }
+
+    function activateTab(tabName) {
+      tabButtons.forEach((btn) => {
+        const isActive = btn.dataset.tab === tabName;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-selected", String(isActive));
+      });
+
+      Object.entries(panels).forEach(([name, panel]) => {
+        panel.classList.toggle("active", name === tabName);
+      });
+    }
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => activateTab(btn.dataset.tab));
+    });
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function normalizeName(name) {
+      return String(name || "")
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function normalizePublication(pub) {
+      return {
+        title: pub.title || "",
+        authors: Array.isArray(pub.authors) ? pub.authors : [],
+        journal: pub.journal || "",
+        year: Number(pub.year) || 0,
+        volume: pub.volume || "",
+        issue: pub.issue || "",
+        pages: pub.pages || "",
+        featured: Boolean(pub.featured),
+        doi: pub.doi || "",
+        lab_member: Array.isArray(pub.lab_member) ? pub.lab_member : [],
+        first_author: Array.isArray(pub.first_author) ? pub.first_author : [],
+        corresponding_author: Array.isArray(pub.corresponding_author) ? pub.corresponding_author : []
+      };
+    }
+
+    function sortPublications(publications) {
+      return [...publications].sort((a, b) => {
+        if (b.year !== a.year) return b.year - a.year;
+        return a.title.localeCompare(b.title);
+      });
+    }
+
+    function buildMetaLine(pub) {
+      const parts = [];
+      if (pub.journal) parts.push(pub.journal);
+      if (pub.volume) parts.push(`Vol. ${pub.volume}`);
+      if (pub.issue) parts.push(`No. ${pub.issue}`);
+      if (pub.pages) parts.push(pub.pages);
+      if (pub.year) parts.push(String(pub.year));
+      return parts.join(" · ");
+    }
+
+    function renderAuthors(pub) {
+      const labMembers = new Set(pub.lab_member.map(normalizeName));
+      const firstAuthors = new Set(pub.first_author.map(normalizeName));
+      const correspondingAuthors = new Set(pub.corresponding_author.map(normalizeName));
+
+      return pub.authors.map((author) => {
+        const normalized = normalizeName(author);
+        const isLabMember = labMembers.has(normalized);
+        const isFirstAuthor = firstAuthors.has(normalized);
+        const isCorresponding = correspondingAuthors.has(normalized);
+
+        let marks = "";
+        if (isFirstAuthor) marks += '<span class="author-mark">†</span>';
+        if (isCorresponding) marks += '<span class="author-mark">*</span>';
+
+        return `
+          <span class="author-name ${isLabMember ? "lab-member" : ""}">
+            ${escapeHtml(author)}${marks}
+          </span>
+        `;
+      }).join(", ");
+    }
+
+    function renderPublicationCard(pub, isFeatured = false) {
+      const content = `
+        <article class="pub-item ${pub.doi ? "" : "static"}">
+          <div class="pub-top-row">
+            ${isFeatured ? '<span class="featured-badge">Featured</span>' : '<span></span>'}
+          </div>
+          <h3 class="pub-title">${escapeHtml(pub.title)}</h3>
+          <p class="pub-authors">${renderAuthors(pub)}</p>
+          <p class="pub-meta">${escapeHtml(buildMetaLine(pub))}</p>
+        </article>
+      `;
+
+      if (pub.doi) {
+        return `
+          <a class="pub-card-link" href="${escapeHtml(pub.doi)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(pub.title)} DOI link">
+            ${content}
+          </a>
+        `;
+      }
+
+      return content;
+    }
+
+    function renderFeatured(publications) {
+      const featured = publications.filter(pub => pub.featured);
+      if (!featured.length) {
+        featuredListEl.innerHTML = `<div class="empty-state">No featured publications available.</div>`;
+        return;
+      }
+      featuredListEl.innerHTML = featured.map(pub => renderPublicationCard(pub, true)).join("");
+    }
+
+    function renderFullList(publications) {
+      if (!publications.length) {
+        fullListEl.innerHTML = `<div class="empty-state">No publications available.</div>`;
+        return;
+      }
+
+      const grouped = publications.reduce((acc, pub) => {
+        const year = pub.year || "Other";
+        if (!acc[year]) acc[year] = [];
+        acc[year].push(pub);
+        return acc;
+      }, {});
+
+      const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
+
+      fullListEl.innerHTML = years.map((year) => `
+        <section class="year-group">
+          <h2 class="year-heading">${escapeHtml(year)}</h2>
+          <div class="pub-list">
+            ${grouped[year].map(pub => renderPublicationCard(pub)).join("")}
+          </div>
+        </section>
+      `).join("");
+    }
+
+    async function loadPublications() {
+      try {
+        const response = await fetch(DATA_URL);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch publication data: ${response.status}`);
+        }
+
+        const rawData = await response.json();
+        const publications = sortPublications(rawData.map(normalizePublication));
+
+        renderFeatured(publications);
+        renderFullList(publications);
+
+        const featuredCount = publications.filter(pub => pub.featured).length;
+        summaryEl.textContent = `${publications.length} publications loaded · ${featuredCount} featured`;
+      } catch (error) {
+        console.error(error);
+        const message = `
+          <div class="error-state">
+            Failed to load publications. Make sure <code>data/publications.json</code> exists
+            and that you are opening this site through a local server.
+          </div>
+        `;
+        featuredListEl.innerHTML = message;
+        fullListEl.innerHTML = message;
+        summaryEl.textContent = "Failed to load publications";
+      }
+    }
+
+    loadPublications();
+  </script>
+</body>
+</html>

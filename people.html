@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>People | AIM Lab</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #1d4ed8;
+      --primary-soft: #dbeafe;
+      --accent: #0f172a;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      --radius: 16px;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .site-header-inner {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .logo-wrap {
+      min-width: 0;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+    }
+
+    .logo-wrap img {
+      height: 46px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .logo-img-wrap {
+        position: relative;
+        height: 46px;
+        width: 46px;
+        flex-shrink: 0;
+    }
+
+    .logo-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    .logo-placeholder {
+        position: absolute;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 0.9rem;
+        color: white;
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+        border-radius: 8px;
+    }
+
+    .lab-name {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--accent);
+    }
+
+    .lab-full {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .lab-kr {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.15s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--primary);
+    }
+
+    .page-header {
+      padding: 3.2rem 0 2rem;
+    }
+
+    .page-header h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      color: var(--accent);
+    }
+
+    .page-header p {
+      margin: 0;
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1.75rem 0 1.25rem;
+    }
+
+    .tabs {
+      display: inline-flex;
+      gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.35rem;
+      box-shadow: var(--shadow);
+    }
+
+    .tab-btn {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .summary {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .panel {
+      display: none;
+      margin-bottom: 3rem;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .person-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .person-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .person-photo-wrap {
+      width: 100%;
+      max-width: 180px;
+      aspect-ratio: 4 / 5;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #eef2f7;
+      border: 1px solid var(--line);
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .person-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #eef2f7;
+    }
+
+    .person-placeholder {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #94a3b8;
+      background: linear-gradient(135deg, #eef2f7, #f8fafc);
+    }
+
+    .person-name {
+      margin: 0 0 0.2rem;
+      font-size: 1.15rem;
+      line-height: 1.35;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    .person-name-kr {
+      margin: 0 0 0.45rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .person-role {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+
+    .person-meta {
+      margin: 0.22rem 0;
+      font-size: 0.94rem;
+      color: var(--text);
+    }
+
+    .person-meta-label {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .person-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.9rem;
+    }
+
+    .person-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.42rem 0.72rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--accent);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .person-link:hover {
+      background: var(--primary-soft);
+    }
+
+    .pi-card {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .pi-left .person-photo-wrap {
+      max-width: 220px;
+      margin: 0 0 1rem;
+    }
+
+    .pi-left .person-name,
+    .pi-left .person-name-kr,
+    .pi-left .person-role {
+      text-align: left;
+    }
+
+    .pi-sections {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .pi-section {
+      border-top: 1px solid var(--line);
+      padding-top: 0.85rem;
+    }
+
+    .pi-section:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .pi-section h3 {
+      margin: 0 0 0.55rem;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .pi-list {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .pi-list li + li {
+      margin-top: 0.45rem;
+    }
+
+    .loading-state,
+    .empty-state,
+    .error-state {
+      padding: 1rem 0.25rem;
+      color: var(--muted);
+    }
+
+    .error-state {
+      color: #b91c1c;
+    }
+
+    .subsection-title {
+      margin: 0 0 1rem;
+      font-size: 1.15rem;
+      color: var(--accent);
+    }
+
+    .subsection + .subsection {
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 860px) {
+      .site-header-inner {
+        align-items: flex-start;
+        padding: 0.9rem 0;
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .pi-card {
+        grid-template-columns: 1fr;
+      }
+
+      .pi-left .person-photo-wrap {
+        margin: 0 auto 1rem;
+      }
+
+      .pi-left .person-name,
+      .pi-left .person-name-kr,
+      .pi-left .person-role {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .tabs {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .tab-btn {
+        flex: 1;
+        text-align: center;
+      }
+
+      .lab-full,
+      .lab-kr {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="logo-wrap">
+        <a href="index.html" class="logo-link" aria-label="Go to home">
+          <div class="logo-img-wrap">
+            <img src="lab logo_web.png" alt="AIM Lab logo" onerror="handleLogoError(this)" />
+            <div class="logo-placeholder">AIM</div>
+        </div>
+          <div class="logo-text">
+            <span class="lab-name">AIM Lab</span>
+            <span class="lab-full">Alloy Informatics and Modeling Laboratory</span>
+            <span class="lab-kr">전산재료 연구실</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="people.html" class="active">People</a>
+        <a href="news.html">News</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <h1>People</h1>
+      <p>
+        Meet the members of AIM Lab. 
+      </p>
+    </header>
+
+    <div class="toolbar">
+      <div class="tabs" role="tablist" aria-label="People sections">
+        <button class="tab-btn active" data-tab="pi" role="tab" aria-selected="true">PI</button>
+        <button class="tab-btn" data-tab="current" role="tab" aria-selected="false">Current Members</button>
+        <button class="tab-btn" data-tab="alumni" role="tab" aria-selected="false">Alumni</button>
+      </div>
+      <div class="summary" id="people-summary">Loading people...</div>
+    </div>
+
+    <section id="pi-panel" class="panel active">
+      <div class="section-card">
+        <div id="pi-list">
+          <div class="loading-state">Loading PI information...</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="current-panel" class="panel">
+      <div class="section-card">
+        <div id="current-list">
+          <div class="loading-state">Loading current members...</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="alumni-panel" class="panel">
+      <div class="section-card">
+        <div id="alumni-list">
+          <div class="loading-state">Loading alumni...</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const DATA_URL = "data/people.json";
+
+    const summaryEl = document.getElementById("people-summary");
+    const piListEl = document.getElementById("pi-list");
+    const currentListEl = document.getElementById("current-list");
+    const alumniListEl = document.getElementById("alumni-list");
+
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const panels = {
+      pi: document.getElementById("pi-panel"),
+      current: document.getElementById("current-panel"),
+      alumni: document.getElementById("alumni-panel")
+    };
+
+    function handleLogoError(img) {
+        img.style.display = "none";
+        const placeholder = img.parentElement.querySelector(".logo-placeholder");
+        if (placeholder) {
+            placeholder.style.display = "flex";
+        }
+    }
+
+    function activateTab(tabName) {
+      tabButtons.forEach((btn) => {
+        const isActive = btn.dataset.tab === tabName;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-selected", String(isActive));
+      });
+
+      Object.entries(panels).forEach(([name, panel]) => {
+        panel.classList.toggle("active", name === tabName);
+      });
+    }
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => activateTab(btn.dataset.tab));
+    });
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function normalizeArrayField(value) {
+      return Array.isArray(value) ? value : [];
+    }
+
+    function normalizePerson(person) {
+      return {
+        given_name: person.given_name || "",
+        family_name: person.family_name || "",
+        name_kr: person.name_kr || "",
+        birth: person.birth || "",
+        category: person.category || "",
+        role: person.role || "",
+        degree: person.degree || "",
+        program: person.program || "",
+        current_position: person.current_position || "",
+        email: person.email || "",
+        phone: person.phone || "",
+        website: person.website || "",
+        scholar: person.scholar || "",
+        educational_background: normalizeArrayField(person.educational_background),
+        professional_experience: normalizeArrayField(person.professional_experience),
+        awards: normalizeArrayField(person.awards),
+        research_interests: normalizeArrayField(person.research_interests)
+      };
+    }
+
+    function getFullName(person) {
+      return [person.given_name, person.family_name].filter(Boolean).join(" ");
+    }
+
+    function buildPhotoCandidates(person) {
+      const base = `${person.given_name}_${person.family_name}_${person.birth}`;
+      return [
+        `photo/${base}.jpg`,
+        `photo/${base}.png`
+      ];
+    }
+
+    function createPhotoMarkup(person) {
+      const fullName = getFullName(person);
+      const initials = `${(person.given_name || " ").charAt(0)}${(person.family_name || " ").charAt(0)}`.trim() || "?";
+      const candidates = buildPhotoCandidates(person);
+
+      return `
+        <div class="person-photo-wrap">
+          <img
+            class="person-photo"
+            src="${escapeHtml(candidates[0])}"
+            alt="${escapeHtml(fullName)}"
+            data-fallback="${escapeHtml(candidates[1])}"
+            data-attempt="jpg"
+            onerror="handlePersonImageError(this)"
+          />
+          <div class="person-placeholder" style="display:none;">${escapeHtml(initials)}</div>
+        </div>
+      `;
+    }
+
+    function renderLinks(person) {
+      const links = [];
+      if (person.email) {
+        links.push(`<a class="person-link" href="mailto:${escapeHtml(person.email)}">Email</a>`);
+      }
+      if (person.website) {
+        links.push(`<a class="person-link" href="${escapeHtml(person.website)}" target="_blank" rel="noopener noreferrer">Website</a>`);
+      }
+      if (person.scholar) {
+        links.push(`<a class="person-link" href="${escapeHtml(person.scholar)}" target="_blank" rel="noopener noreferrer">Scholar</a>`);
+      }
+      if (!links.length) return "";
+      return `<div class="person-links">${links.join("")}</div>`;
+    }
+
+    function renderListSection(title, items) {
+      if (!items.length) return "";
+      return `
+        <section class="pi-section">
+          <h3>${escapeHtml(title)}</h3>
+          <ul class="pi-list">
+            ${items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}
+          </ul>
+        </section>
+      `;
+    }
+
+    function renderStandardCard(person) {
+      const fullName = getFullName(person);
+
+      return `
+        <article class="person-card">
+          ${createPhotoMarkup(person)}
+
+          <h3 class="person-name">${escapeHtml(fullName)}</h3>
+          ${person.name_kr ? `<p class="person-name-kr">${escapeHtml(person.name_kr)}</p>` : ""}
+          ${person.role ? `<p class="person-role">${escapeHtml(person.role)}</p>` : ""}
+          ${person.degree ? `<p class="person-meta"><span class="person-meta-label">Degree:</span> ${escapeHtml(person.degree)}</p>` : ""}
+          ${person.program ? `<p class="person-meta"><span class="person-meta-label">Program:</span> ${escapeHtml(person.program)}</p>` : ""}
+          ${person.current_position ? `<p class="person-meta"><span class="person-meta-label">Current Position:</span> ${escapeHtml(person.current_position)}</p>` : ""}
+          ${renderLinks(person)}
+        </article>
+      `;
+    }
+
+    function renderPICard(person) {
+      const fullName = getFullName(person);
+
+      return `
+        <article class="person-card pi-card">
+          <div class="pi-left">
+            ${createPhotoMarkup(person)}
+            <h3 class="person-name">${escapeHtml(fullName)}</h3>
+            ${person.name_kr ? `<p class="person-name-kr">${escapeHtml(person.name_kr)}</p>` : ""}
+            ${person.role ? `<p class="person-role">${escapeHtml(person.role)}</p>` : ""}
+            ${person.email ? `<p class="person-meta"><span class="person-meta-label">Email:</span> <a href="mailto:${escapeHtml(person.email)}">${escapeHtml(person.email)}</a></p>` : ""}
+            ${person.phone ? `<p class="person-meta"><span class="person-meta-label">Phone:</span> ${escapeHtml(person.phone)}</p>` : ""}
+            ${renderLinks({ website: person.website, scholar: person.scholar, email: "" })}
+          </div>
+
+          <div class="pi-sections">
+            ${renderListSection("Educational Background", person.educational_background)}
+            ${renderListSection("Professional Experience", person.professional_experience)}
+            ${renderListSection("Awards and Honors", person.awards)}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderSimpleGroupedSection(title, people) {
+      if (!people.length) return "";
+
+      return `
+        <section class="subsection">
+          <h2 class="subsection-title">${escapeHtml(title)}</h2>
+          <div class="people-grid">
+            ${people.map(renderStandardCard).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function sortByName(people) {
+      return [...people].sort((a, b) => {
+        const nameA = getFullName(a).toLowerCase();
+        const nameB = getFullName(b).toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
+    }
+
+    function renderPI(people) {
+      const piPeople = people.filter(person => person.category === "pi");
+      if (!piPeople.length) {
+        piListEl.innerHTML = `<div class="empty-state">No PI information available.</div>`;
+        return;
+      }
+      piListEl.innerHTML = piPeople.map(renderPICard).join("");
+    }
+
+    function renderCurrentMembers(people) {
+      const current = people.filter(person => person.category === "current");
+
+      if (!current.length) {
+        currentListEl.innerHTML = `<div class="empty-state">No current members available.</div>`;
+        return;
+      }
+
+      const postdocs = sortByName(current.filter(p => /postdoc|researcher/i.test(p.role)));
+      const phd = sortByName(current.filter(p => /ph\.?d/i.test(p.role)));
+      const ms = sortByName(current.filter(p => /\bm\.?s\b|master/i.test(p.role)));
+      const undergrad = sortByName(current.filter(p => /undergraduate|intern/i.test(p.role)));
+      const others = sortByName(current.filter(p =>
+        !postdocs.includes(p) &&
+        !phd.includes(p) &&
+        !ms.includes(p) &&
+        !undergrad.includes(p)
+      ));
+
+      const html = [
+        renderSimpleGroupedSection("Postdocs / Researchers", postdocs),
+        renderSimpleGroupedSection("Ph.D. Students", phd),
+        renderSimpleGroupedSection("M.S. Students", ms),
+        renderSimpleGroupedSection("Undergraduate Researchers / Interns", undergrad),
+        renderSimpleGroupedSection("Other Members", others)
+      ].filter(Boolean).join("");
+
+      currentListEl.innerHTML = html || `<div class="empty-state">No current members available.</div>`;
+    }
+
+    function renderAlumni(people) {
+      const alumni = sortByName(people.filter(person => person.category === "alumni"));
+
+      if (!alumni.length) {
+        alumniListEl.innerHTML = `<div class="empty-state">No alumni information available.</div>`;
+        return;
+      }
+
+      alumniListEl.innerHTML = `
+        <div class="people-grid">
+          ${alumni.map(renderStandardCard).join("")}
+        </div>
+      `;
+    }
+
+    async function loadPeople() {
+      try {
+        const response = await fetch(DATA_URL);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch people data: ${response.status}`);
+        }
+
+        const rawData = await response.json();
+        const people = rawData.map(normalizePerson);
+
+        renderPI(people);
+        renderCurrentMembers(people);
+        renderAlumni(people);
+
+        const piCount = people.filter(p => p.category === "pi").length;
+        const currentCount = people.filter(p => p.category === "current").length;
+        const alumniCount = people.filter(p => p.category === "alumni").length;
+
+        summaryEl.textContent = `${piCount} PI · ${currentCount} current members · ${alumniCount} alumni`;
+      } catch (error) {
+        console.error(error);
+        const message = `
+          <div class="error-state">
+            Failed to load people. Make sure <code>data/people.json</code> exists
+            and that you are opening this site through a local server.
+          </div>
+        `;
+        piListEl.innerHTML = message;
+        currentListEl.innerHTML = message;
+        alumniListEl.innerHTML = message;
+        summaryEl.textContent = "Failed to load people";
+      }
+    }
+
+    function handlePersonImageError(img) {
+      const fallback = img.dataset.fallback;
+      const attempt = img.dataset.attempt;
+
+      if (attempt === "jpg" && fallback) {
+        img.dataset.attempt = "png";
+        img.src = fallback;
+        return;
+      }
+
+      img.style.display = "none";
+      const placeholder = img.parentElement.querySelector(".person-placeholder");
+      if (placeholder) {
+        placeholder.style.display = "flex";
+      }
+    }
+
+    window.handlePersonImageError = handlePersonImageError;
+
+    loadPeople();
+  </script>
+</body>
+</html>

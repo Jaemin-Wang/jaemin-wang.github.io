@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News | AIM Lab</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #1d4ed8;
+      --primary-soft: #dbeafe;
+      --accent: #0f172a;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      --radius: 16px;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .site-header-inner {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .logo-wrap {
+      min-width: 0;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+    }
+
+    .logo-img-wrap {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+    }
+
+    .logo-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: white;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      border-radius: 8px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .lab-name {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--accent);
+    }
+
+    .lab-full {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .lab-kr {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.15s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--primary);
+    }
+
+    .page-header {
+      padding: 3.2rem 0 2rem;
+    }
+
+    .page-header h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      color: var(--accent);
+    }
+
+    .page-header p {
+      margin: 0;
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .summary {
+      margin: 0 0 1.25rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .news-list {
+      display: grid;
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .news-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 180px;
+    }
+
+    .news-card.no-image {
+      grid-template-columns: 1fr;
+    }
+
+    .news-media {
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eef2f7;
+    }
+
+    .news-card.no-image .news-media {
+      display: none;
+    }
+
+    .news-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .news-content {
+      padding: 1.2rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .news-date {
+      margin: 0;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+
+    .news-title {
+      margin: 0;
+      font-size: 1.22rem;
+      line-height: 1.35;
+      color: var(--accent);
+    }
+
+    .news-summary {
+      margin: 0;
+      font-size: 0.98rem;
+      color: var(--text);
+    }
+
+    .news-meta {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .news-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .news-link:hover {
+      background: var(--primary-soft);
+    }
+
+    .loading-state,
+    .empty-state,
+    .error-state {
+      padding: 1rem 0.25rem;
+      color: var(--muted);
+    }
+
+    .error-state {
+      color: #b91c1c;
+    }
+
+    @media (max-width: 900px) {
+      .site-header-inner {
+        align-items: flex-start;
+        padding: 0.9rem 0;
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .news-card {
+        grid-template-columns: 1fr;
+      }
+
+      .news-media {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        min-height: 220px;
+      }
+
+      .news-card.no-image {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .lab-full,
+      .lab-kr {
+        display: none;
+      }
+
+      .news-media {
+        min-height: 190px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="logo-wrap">
+        <a href="index.html" class="logo-link" aria-label="Go to home">
+          <div class="logo-img-wrap">
+            <img src="lab logo_web.png" alt="AIM Lab logo" onerror="handleLogoError(this)" />
+            <div class="logo-placeholder">AIM</div>
+          </div>
+          <div class="logo-text">
+            <span class="lab-name">AIM Lab</span>
+            <span class="lab-full">Alloy Informatics and Modeling Laboratory</span>
+            <span class="lab-kr">전산재료 연구실</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="people.html">People</a>
+        <a href="news.html" class="active">News</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <h1>News</h1>
+      <p>
+        Recent updates from AIM Lab, including publications, awards, appointments,
+        invited talks, and other lab activities.
+      </p>
+    </header>
+
+    <div class="summary" id="news-summary">Loading news...</div>
+
+    <section id="news-list" class="news-list">
+      <div class="loading-state">Loading news...</div>
+    </section>
+  </main>
+
+  <script>
+    const DATA_URL = "data/news.json";
+
+    const newsListEl = document.getElementById("news-list");
+    const summaryEl = document.getElementById("news-summary");
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function normalizeNewsItem(item) {
+      return {
+        date: item.date || "",
+        title: item.title || "",
+        summary: item.summary || "",
+        link: item.link || ""
+      };
+    }
+
+    function formatDate(dateString) {
+      if (!dateString) return "";
+      const date = new Date(dateString);
+      if (Number.isNaN(date.getTime())) return dateString;
+
+      return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      });
+    }
+
+    function sortNews(items) {
+      return [...items].sort((a, b) => {
+        const timeA = new Date(a.date).getTime();
+        const timeB = new Date(b.date).getTime();
+        return timeB - timeA;
+      });
+    }
+
+    function buildImageCandidates(title) {
+      return [
+        `news_image/${title}.jpg`,
+        `news_image/${title}.png`
+      ];
+    }
+
+    function renderNewsCard(item, index) {
+      const candidates = buildImageCandidates(item.title);
+      const imageId = `news-image-${index}`;
+      const placeholderId = `news-placeholder-${index}`;
+
+      return `
+        <article class="news-card" id="news-card-${index}">
+          <div class="news-media">
+            <img
+              id="${imageId}"
+              class="news-image"
+              src="${escapeHtml(candidates[0])}"
+              alt="${escapeHtml(item.title)} representative image"
+              data-candidates='${escapeHtml(JSON.stringify(candidates))}'
+              data-index="0"
+              data-card-id="news-card-${index}"
+              onerror="handleNewsImageError(this)"
+            />
+          </div>
+
+          <div class="news-content">
+            ${item.date ? `<p class="news-date">${escapeHtml(formatDate(item.date))}</p>` : ""}
+            <h2 class="news-title">${escapeHtml(item.title)}</h2>
+            ${item.summary ? `<p class="news-summary">${escapeHtml(item.summary)}</p>` : ""}
+            <div class="news-meta">
+              ${item.link ? `<a class="news-link" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer">Read More</a>` : ""}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    async function loadNews() {
+      try {
+        const response = await fetch(DATA_URL);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch news data: ${response.status}`);
+        }
+
+        const rawData = await response.json();
+        const newsItems = sortNews(rawData.map(normalizeNewsItem));
+
+        if (!newsItems.length) {
+          newsListEl.innerHTML = `<div class="empty-state">No news available.</div>`;
+          summaryEl.textContent = "0 news items";
+          return;
+        }
+
+        newsListEl.innerHTML = newsItems.map(renderNewsCard).join("");
+        summaryEl.textContent = `${newsItems.length} news items`;
+      } catch (error) {
+        console.error(error);
+        newsListEl.innerHTML = `
+          <div class="error-state">
+            Failed to load news. Make sure <code>data/news.json</code> exists
+            and that you are opening this site through a local server.
+          </div>
+        `;
+        summaryEl.textContent = "Failed to load news";
+      }
+    }
+
+    function handleNewsImageError(img) {
+      const candidates = JSON.parse(img.dataset.candidates || "[]");
+      let index = Number(img.dataset.index || 0);
+
+      index += 1;
+
+      if (index < candidates.length) {
+        img.dataset.index = String(index);
+        img.src = candidates[index];
+        return;
+      }
+
+      const cardId = img.dataset.cardId;
+      const card = document.getElementById(cardId);
+      if (card) {
+        card.classList.add("no-image");
+      }
+
+      const media = img.closest(".news-media");
+      if (media) {
+        media.remove();
+      }
+    }
+
+    function handleLogoError(img) {
+      img.style.display = "none";
+      const placeholder = img.parentElement.querySelector(".logo-placeholder");
+      if (placeholder) {
+        placeholder.style.display = "flex";
+      }
+    }
+
+    window.handleNewsImageError = handleNewsImageError;
+    window.handleLogoError = handleLogoError;
+
+    loadNews();
+  </script>
+</body>
+</html>

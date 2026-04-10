@@ -1,0 +1,82 @@
+[
+  {
+    "title": "A neural network model for high entropy alloy design",
+    "authors": [
+      "Jaemin Wang",
+      "Hyeonseok Kwon",
+      "Hyoung Seop Kim",
+      "Byeong-Joo Lee"
+    ],
+    "journal": "npj Computational Materials",
+    "year": 2023,
+    "volume": "9",
+    "issue": "1",
+    "pages": "60",
+    "featured": true,
+    "doi": "https://doi.org/10.1038/s41524-023-01018-9",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Jaemin Wang"
+    ],
+    "corresponding_author": [
+      "Byeong-Joo Lee"
+    ]
+  },
+  {
+    "title": "Material-agnostic machine learning approach enables high relative density in powder bed fusion products",
+    "authors": [
+      "Jaemin Wang",
+      "Sang Guk Jeong",
+      "Eun Seong Kim",
+      "Hyoung Seop Kim",
+      "Byeong-Joo Lee"
+    ],
+    "journal": "Nature Communications",
+    "year": 2023,
+    "volume": "14",
+    "issue": "1",
+    "pages": "6557",
+    "featured": true,
+    "doi": "https://doi.org/10.1038/s41467-023-42319-x",
+    "lab_member": [
+      "Jaemin Wang",
+      "Sang Guk Jeong",
+      "Eun Seong Kim"
+    ],
+    "first_author": [
+      "Jaemin Wang"
+    ],
+    "corresponding_author": [
+      "Hyoung Seop Kim",
+      "Byeong-Joo Lee"
+    ]
+  },
+  {
+    "title": "Compositional complexity buffers free-volume sensitivity and serrated flow in metallic glasses",
+    "authors": [
+      "Anurag Bajpai",
+      "Jaemin Wang",
+      "Dierk Raabe"
+    ],
+    "journal": "npj Computational Materials",
+    "year": 2026,
+    "volume": "12",
+    "issue": "",
+    "pages": "59",
+    "featured": true,
+    "doi": "",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Anurag Bajpai",
+      "Jaemin Wang"
+    ],
+    "corresponding_author": [
+      "Anurag Bajpai",
+      "Dierk Raabe"
+    ]
+  }
+]

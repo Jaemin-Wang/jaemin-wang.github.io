@@ -661,7 +661,7 @@
         renderFullList(publications);
 
         const featuredCount = publications.filter(pub => pub.featured).length;
-        summaryEl.textContent = `${publications.length} publications loaded · ${featuredCount} featured`;
+        summaryEl.textContent = `${publications.length} publications · ${featuredCount} featured`;
       } catch (error) {
         console.error(error);
         const message = `

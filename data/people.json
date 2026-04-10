@@ -1,5 +1,5 @@
 [
-    {
+  {
     "given_name": "Jaemin",
     "family_name": "Wang",
     "name_kr": "왕재민",
@@ -11,19 +11,22 @@
     "website": "https://scholar.google.com/citations?user=16pIavIAAAAJ",
     "scholar": "https://scholar.google.com/citations?user=16pIavIAAAAJ",
     "educational_background": [
-        "M.S.-Ph.D. integrated in Materials Science and Engineering, Pohang University of Science and Technology, 2024",
-        "B.S. in Materials Science and Engineering, Pohang University of Science and Technology, 2019"
+      "M.S.-Ph.D. integrated in Materials Science and Engineering, Pohang University of Science and Technology, 2024",
+      "B.S. in Materials Science and Engineering, Pohang University of Science and Technology, 2019"
     ],
     "professional_experience": [
-        "Assistant Professor, Department of Materials Science and Metallurgical Engineering, Kyungpook National University, Daegu, Republic of Korea, Mar 2026 - Present",
-        "Postdoctoral Researcher, Microstructure Physics and Alloy Design Department, Max Planck Institute for Sustainable Materials, Düsseldorf, Germany, May 2025 - Feb 2026",
-        "Postdoctoral Researcher, Center for Advanced Aerospace Materials, Pohang University of Science and Technology, Pohang, Republic of Korea, Feb 2024 - Apr 2025"
+      "Assistant Professor, Department of Materials Science and Metallurgical Engineering, Kyungpook National University, Daegu, Republic of Korea, Mar 2026 - Present",
+      "Postdoctoral Researcher, Microstructure Physics and Alloy Design Department, Max Planck Institute for Sustainable Materials, Düsseldorf, Germany, May 2025 - Feb 2026",
+      "Postdoctoral Researcher, Center for Advanced Aerospace Materials, Pohang University of Science and Technology, Pohang, Republic of Korea, Feb 2024 - Apr 2025"
     ],
     "awards": [
-        "Max-Planck-Gesellschaft Postdoctoral Fellowship, Max Planck Society, May 2025 - Feb 2026",
-        "Larry Kaufman Scholarship Award, CALPHAD, 2023",
-        "Academic Paper Award, Department of Materials Science and Engineering (POSTECH), 2023",
-        "Best Oral Presentation Award, Spring Conference of KIM, 2023"
-    ]
-    }
+      "Max-Planck-Gesellschaft Postdoctoral Fellowship, Max Planck Society, May 2025 - Feb 2026",
+      "Larry Kaufman Scholarship Award, CALPHAD, 2023",
+      "Academic Paper Award, Department of Materials Science and Engineering (POSTECH), 2023",
+      "Best Oral Presentation Award, Spring Conference of KIM, 2023"
+    ],
+    "degree": "",
+    "program": "",
+    "current_position": ""
+  }
 ]

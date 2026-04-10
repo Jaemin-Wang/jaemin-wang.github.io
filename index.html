@@ -495,7 +495,7 @@
           <div class="hero-actions">
             <a class="btn primary" href="publications.html">View Publications</a>
             <a class="btn" href="research.html">Explore Research</a>
-            <a class="btn" href="news.html">Recent News</a>
+            <a class="btn" href="people.html">Meet the Lab</a>
           </div>
         </div>
 
@@ -688,8 +688,9 @@
         const items = data
           .map(normalizePublication)
           .filter(item => item.featured)
-          .slice(0, 4)
-          .reverse();
+          .slice()
+          .reverse()
+          .slice(0,4);
 
         if (!items.length) {
           featuredPublicationsPreviewEl.innerHTML = `<div class="empty-state">No featured publications available.</div>`;
@@ -708,8 +709,9 @@
         const data = await safeFetch(PUBLICATIONS_URL);
         const items = data
           .map(normalizePublication)
-          .slice(0, 4)
-          .reverse();
+          .slice()
+          .reverse()
+          .slice(0,4);
 
         if (!items.length) {
           recentPublicationsPreviewEl.innerHTML = `<div class="empty-state">No recent publications available.</div>`;

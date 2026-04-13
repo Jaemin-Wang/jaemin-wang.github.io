@@ -23,6 +23,21 @@
       box-sizing: border-box;
     }
 
+    footer a {
+      color: var(--primary);
+      font-weight: 300;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      padding: 1rem 0 2.5rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
     html {
       scroll-behavior: smooth;
     }
@@ -383,6 +398,30 @@
       <div class="loading-state">Loading research themes...</div>
     </section>
   </main>
+
+<footer class="container">
+  <div style="margin-bottom: 0.8rem;">
+    <strong>AIM Lab</strong> · Alloy Informatics and Modeling Laboratory
+  </div>
+
+  <div>
+    <strong>Principal Investigator:</strong> Prof. Jaemin Wang<br>
+    Department of Materials Science and Metallurgical Engineering<br>
+    Kyungpook National University<br>
+    80 Daehakro, Bukgu, Daegu 41566, Republic of Korea<br>
+    Email: <a href="mailto:jmwang@knu.ac.kr">jmwang@knu.ac.kr</a>
+  </div>
+
+  <div style="margin-top: 0.6rem;">
+    <a href="https://scholar.google.com/citations?user=16pIavIAAAAJ&hl=en" target="_blank">Google Scholar</a> ·
+    <a href="https://orcid.org/0000-0002-6845-6907" target="_blank">ORCID</a> ·
+    <a href="https://www.researchgate.net/profile/Jaemin-Wang" target="_blank">ResearchGate</a>
+  </div>
+
+  <div style="margin-top: 0.8rem; font-size: 0.85rem;">
+    © AIM Lab
+  </div>
+</footer>
 
   <script>
     const DATA_URL = "data/research.json";

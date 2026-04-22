@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Publications | AIM Lab</title>
+  <title>논문 | 전산재료 연구실</title>
   <style>
     :root {
       --bg: #f7f9fc;
@@ -333,12 +333,6 @@
       font-weight: 700;
     }
 
-    .doi-note {
-      color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 600;
-    }
-
     .pub-title {
       margin: 0 0 0.42rem;
       font-size: 1.08rem;
@@ -420,6 +414,11 @@
         align-items: flex-start;
         flex-direction: column;
       }
+
+      .lab-full,
+      .lab-kr {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -427,62 +426,61 @@
   <header class="site-header">
     <div class="site-header-inner">
       <div class="logo-wrap">
-        <a href="index.html" class="logo-link" aria-label="Go to home">
-          
+        <a href="index.html" class="logo-link" aria-label="홈으로 이동">
           <div class="logo-img-wrap">
-            <img src="lab logo_web.png" alt="AIM Lab logo" onerror="handleLogoError(this)" />
+            <img src="../lab logo_web.png" alt="AIM Lab 로고" onerror="handleLogoError(this)" />
             <div class="logo-placeholder">AIM</div>
-          </div>  
+          </div>
 
           <div class="logo-text">
-            <span class="lab-name">AIM Lab</span>
-            <span class="lab-full">Alloy Informatics and Modeling Laboratory</span>
-            <span class="lab-kr">전산재료 연구실</span>
+            <span class="lab-name">전산재료 연구실</span>
+            <span class="lab-full">AIM Lab</span>
+            <span class="lab-kr">Computational Materials Laboratory</span>
           </div>
         </a>
       </div>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="research.html">Research</a>
-        <a href="publications.html" class="active">Publications</a>
-        <a href="people.html">People</a>
-        <a href="news.html">News</a>
-        <a href="ko/publications.html">한국어</a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="index.html">홈</a>
+        <a href="research.html">연구</a>
+        <a href="publications.html" class="active">논문</a>
+        <a href="people.html">구성원</a>
+        <a href="news.html">소식</a>
+        <a href="../publications.html">English</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
     <header class="page-header">
-      <h1>Publications</h1>
+      <h1>논문</h1>
       <p>
-        Selected and full publication list for AIM Lab.
+        전산재료 연구실의 대표 논문과 전체 출판 목록입니다.
       </p>
 
-      <div class="author-legend" aria-label="Author notation legend">
-        <span class="legend-chip"><span class="legend-name">Bold</span> lab member</span>
-        <span class="legend-chip">† first author / co-first author</span>
-        <span class="legend-chip">* corresponding author</span>
+      <div class="author-legend" aria-label="저자 표기 범례">
+        <span class="legend-chip"><span class="legend-name">볼드</span> 연구실 구성원</span>
+        <span class="legend-chip">† 제1저자 / 공동 제1저자</span>
+        <span class="legend-chip">* 교신저자</span>
       </div>
     </header>
 
     <div class="toolbar">
-      <div class="tabs" role="tablist" aria-label="Publication sections">
+      <div class="tabs" role="tablist" aria-label="연구성과 구분">
         <button class="tab-btn active" data-tab="featured" role="tab" aria-selected="true">
-          Featured
+          주요 논문
         </button>
         <button class="tab-btn" data-tab="full" role="tab" aria-selected="false">
-          Full List
+          전체 목록
         </button>
       </div>
-      <div class="summary" id="pub-summary">Loading publications...</div>
+      <div class="summary" id="pub-summary">논문 정보를 불러오는 중입니다...</div>
     </div>
 
     <section id="featured-panel" class="panel active">
       <div class="section-card">
         <div id="featured-list" class="pub-list">
-          <div class="loading-state">Loading featured publications...</div>
+          <div class="loading-state">주요 논문을 불러오는 중입니다...</div>
         </div>
       </div>
     </section>
@@ -490,7 +488,7 @@
     <section id="full-panel" class="panel">
       <div class="section-card">
         <div id="full-list">
-          <div class="loading-state">Loading full publication list...</div>
+          <div class="loading-state">전체 논문 목록을 불러오는 중입니다...</div>
         </div>
       </div>
     </section>
@@ -498,15 +496,14 @@
 
 <footer class="container">
   <div style="margin-bottom: 0.8rem;">
-    <strong>AIM Lab</strong> · Alloy Informatics and Modeling Laboratory
+    <strong>전산재료 연구실</strong> · AIM Lab
   </div>
 
   <div>
-    <strong>Principal Investigator:</strong> Prof. Jaemin Wang<br>
-    Department of Materials Science and Metallurgical Engineering<br>
-    Kyungpook National University<br>
-    80 Daehakro, Bukgu, Daegu 41566, Republic of Korea<br>
-    Email: <a href="mailto:jmwang@knu.ac.kr">jmwang@knu.ac.kr</a>
+    <strong>지도교수:</strong> 왕재민 교수<br>
+    경북대학교 금속재료공학과<br>
+    대구광역시 북구 대학로 80, 41566, 대한민국<br>
+    이메일: <a href="mailto:jmwang@knu.ac.kr">jmwang@knu.ac.kr</a>
   </div>
 
   <div style="margin-top: 0.6rem;">
@@ -521,7 +518,7 @@
 </footer>
 
   <script>
-    const DATA_URL = "data/publications.json";
+    const DATA_URL = "../data/publications.json";
 
     const featuredListEl = document.getElementById("featured-list");
     const fullListEl = document.getElementById("full-list");
@@ -533,11 +530,11 @@
     };
 
     function handleLogoError(img) {
-        img.style.display = "none";
-        const placeholder = img.parentElement.querySelector(".logo-placeholder");
-        if (placeholder) {
-            placeholder.style.display = "flex";
-        }
+      img.style.display = "none";
+      const placeholder = img.parentElement.querySelector(".logo-placeholder");
+      if (placeholder) {
+        placeholder.style.display = "flex";
+      }
     }
 
     function activateTab(tabName) {
@@ -562,7 +559,7 @@
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
+        .replace(/\"/g, "&quot;")
         .replace(/'/g, "&#039;");
     }
 
@@ -634,7 +631,7 @@
       const content = `
         <article class="pub-item ${pub.doi ? "" : "static"}">
           <div class="pub-top-row">
-            ${isFeatured ? '<span class="featured-badge">Featured</span>' : '<span></span>'}
+            ${isFeatured ? '<span class="featured-badge">주요 논문</span>' : '<span></span>'}
           </div>
           <h3 class="pub-title">${escapeHtml(pub.title)}</h3>
           <p class="pub-authors">${renderAuthors(pub)}</p>
@@ -644,7 +641,7 @@
 
       if (pub.doi) {
         return `
-          <a class="pub-card-link" href="${escapeHtml(pub.doi)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(pub.title)} DOI link">
+          <a class="pub-card-link" href="${escapeHtml(pub.doi)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(pub.title)} DOI 링크">
             ${content}
           </a>
         `;
@@ -656,7 +653,7 @@
     function renderFeatured(publications) {
       const featured = publications.filter(pub => pub.featured);
       if (!featured.length) {
-        featuredListEl.innerHTML = `<div class="empty-state">No featured publications available.</div>`;
+        featuredListEl.innerHTML = `<div class="empty-state">주요 논문이 없습니다.</div>`;
         return;
       }
       featuredListEl.innerHTML = featured.map(pub => renderPublicationCard(pub, true)).join("");
@@ -664,12 +661,12 @@
 
     function renderFullList(publications) {
       if (!publications.length) {
-        fullListEl.innerHTML = `<div class="empty-state">No publications available.</div>`;
+        fullListEl.innerHTML = `<div class="empty-state">등록된 논문이 없습니다.</div>`;
         return;
       }
 
       const grouped = publications.reduce((acc, pub) => {
-        const year = pub.year || "Other";
+        const year = pub.year || "기타";
         if (!acc[year]) acc[year] = [];
         acc[year].push(pub);
         return acc;
@@ -701,18 +698,18 @@
         renderFullList(publications);
 
         const featuredCount = publications.filter(pub => pub.featured).length;
-        summaryEl.textContent = `${publications.length} publications · ${featuredCount} featured`;
+        summaryEl.textContent = `전체 ${publications.length}편 · 주요 논문 ${featuredCount}편`;
       } catch (error) {
         console.error(error);
         const message = `
           <div class="error-state">
-            Failed to load publications. Make sure <code>data/publications.json</code> exists
-            and that you are opening this site through a local server.
+            논문 정보를 불러오지 못했습니다. <code>../data/publications.json</code> 파일이 존재하는지,
+            그리고 사이트를 로컬 서버를 통해 열고 있는지 확인해주세요.
           </div>
         `;
         featuredListEl.innerHTML = message;
         fullListEl.innerHTML = message;
-        summaryEl.textContent = "Failed to load publications";
+        summaryEl.textContent = "논문 정보를 불러오지 못했습니다.";
       }
     }
 

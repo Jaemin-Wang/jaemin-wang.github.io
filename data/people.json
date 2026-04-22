@@ -6,18 +6,28 @@
     "birth": "19960416",
     "category": "pi",
     "role": "Assistant Professor",
+    "role_kr": "조교수",
     "email": "jmwang@knu.ac.kr",
     "phone": "+82-53-950-5562",
-    "website": "https://scholar.google.com/citations?user=16pIavIAAAAJ",
+    "website": "https://aimlab.knu.ac.kr",
     "scholar": "https://scholar.google.com/citations?user=16pIavIAAAAJ",
     "educational_background": [
       "M.S.-Ph.D. integrated in Materials Science and Engineering, Pohang University of Science and Technology, 2024",
       "B.S. in Materials Science and Engineering, Pohang University of Science and Technology, 2019"
     ],
+    "educational_background_kr": [
+      "포항공과대학교 신소재공학과 석사·박사 통합과정, 2024",
+      "포항공과대학교 신소재공학과 학사, 2019"
+    ],
     "professional_experience": [
       "Assistant Professor, Department of Materials Science and Metallurgical Engineering, Kyungpook National University, Daegu, Republic of Korea, Mar 2026 - Present",
       "Postdoctoral Researcher, Microstructure Physics and Alloy Design Department, Max Planck Institute for Sustainable Materials, Düsseldorf, Germany, May 2025 - Feb 2026",
       "Postdoctoral Researcher, Center for Advanced Aerospace Materials, Pohang University of Science and Technology, Pohang, Republic of Korea, Feb 2024 - Apr 2025"
+    ],
+    "professional_experience_kr": [
+      "경북대학교 금속재료공학과 조교수, 대구, 대한민국, 2026년 3월 - 현재",
+      "Postdoctoral Researcher, Microstructure Physics and Alloy Design Department, Max Planck Institute for Sustainable Materials, 뒤셀도르프, 독일, 2025년 5월 - 2026년 2월",
+      "포항공과대학교 항공재료연구센터 박사후연구원, 포항, 대한민국, 2024년 2월 - 2025년 4월"
     ],
     "awards": [
       "Max-Planck-Gesellschaft Postdoctoral Fellowship, Max Planck Society, May 2025 - Feb 2026",
@@ -25,8 +35,19 @@
       "Academic Paper Award, Department of Materials Science and Engineering (POSTECH), 2023",
       "Best Oral Presentation Award, Spring Conference of KIM, 2023"
     ],
+    "awards_kr": [
+      "Max-Planck-Gesellschaft Postdoctoral Fellowship, Max Planck Society, 2025년 5월 - 2026년 2월",
+      "Larry Kaufman Scholarship Award, CALPHAD, 2023",
+      "학술논문상, 포항공과대학교 신소재공학과, 2023",
+      "우수 구두발표상, 대한금속재료학회 춘계학술대회, 2023"
+    ],
     "degree": "",
+    "degree_kr": "",
     "program": "",
-    "current_position": ""
+    "program_kr": "",
+    "current_position": "",
+    "current_position_kr": "",
+    "research_interests": [],
+    "research_interests_kr": []
   }
 ]

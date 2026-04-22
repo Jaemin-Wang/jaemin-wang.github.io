@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>News | AIM Lab</title>
+  <title>뉴스 | 전산재료 연구실</title>
   <style>
     :root {
       --bg: #f7f9fc;
@@ -328,57 +328,55 @@
   <header class="site-header">
     <div class="site-header-inner">
       <div class="logo-wrap">
-        <a href="index.html" class="logo-link" aria-label="Go to home">
+        <a href="index.html" class="logo-link" aria-label="홈으로 이동">
           <div class="logo-img-wrap">
-            <img src="lab logo_web.png" alt="AIM Lab logo" onerror="handleLogoError(this)" />
-            <div class="logo-placeholder">AIM</div>
+            <img src="../lab logo_web.png" alt="전산재료 연구실 로고" onerror="handleLogoError(this)" />
+            <div class="logo-placeholder">전산</div>
           </div>
           <div class="logo-text">
-            <span class="lab-name">AIM Lab</span>
-            <span class="lab-full">Alloy Informatics and Modeling Laboratory</span>
-            <span class="lab-kr">전산재료 연구실</span>
+            <span class="lab-name">전산재료 연구실</span>
+            <span class="lab-full">AIM Lab</span>
+            <span class="lab-kr">Computational Materials Laboratory</span>
           </div>
         </a>
       </div>
 
       <nav class="nav" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="research.html">Research</a>
-        <a href="publications.html">Publications</a>
-        <a href="people.html">People</a>
-        <a href="news.html" class="active">News</a>
-        <a href="ko/news.html">한국어</a>
+        <a href="index.html">홈</a>
+        <a href="research.html">연구</a>
+        <a href="publications.html">논문</a>
+        <a href="people.html">구성원</a>
+        <a href="news.html" class="active">뉴스</a>
+        <a href="../news.html">English</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
     <header class="page-header">
-      <h1>News</h1>
+      <h1>뉴스</h1>
       <p>
-        Recent updates from AIM Lab, including publications, awards, appointments,
-        invited talks, and other lab activities.
+        전산재료 연구실의 최근 소식입니다. 논문, 수상, 임용, 초청 강연 및 연구실 활동을 소개합니다.
       </p>
     </header>
 
-    <div class="summary" id="news-summary">Loading news...</div>
+    <div class="summary" id="news-summary">뉴스를 불러오는 중입니다...</div>
 
     <section id="news-list" class="news-list">
-      <div class="loading-state">Loading news...</div>
+      <div class="loading-state">뉴스를 불러오는 중입니다...</div>
     </section>
   </main>
 
 <footer class="container">
   <div style="margin-bottom: 0.8rem;">
-    <strong>AIM Lab</strong> · Alloy Informatics and Modeling Laboratory
+    <strong>전산재료 연구실</strong> · AIM Lab
   </div>
 
   <div>
-    <strong>Principal Investigator:</strong> Prof. Jaemin Wang<br>
-    Department of Materials Science and Metallurgical Engineering<br>
-    Kyungpook National University<br>
-    80 Daehakro, Bukgu, Daegu 41566, Republic of Korea<br>
-    Email: <a href="mailto:jmwang@knu.ac.kr">jmwang@knu.ac.kr</a>
+    <strong>지도교수:</strong> 왕재민 교수<br>
+    경북대학교 금속재료공학과<br>
+    대구광역시 북구 대학로 80, 41566, 대한민국<br>
+    이메일: <a href="mailto:jmwang@knu.ac.kr">jmwang@knu.ac.kr</a>
   </div>
 
   <div style="margin-top: 0.6rem;">
@@ -393,7 +391,7 @@
 </footer>
 
   <script>
-    const DATA_URL = "data/news.json";
+    const DATA_URL = "../data/news.json";
 
     const newsListEl = document.getElementById("news-list");
     const summaryEl = document.getElementById("news-summary");
@@ -422,7 +420,7 @@
       const date = new Date(dateString);
       if (Number.isNaN(date.getTime())) return dateString;
 
-      return date.toLocaleDateString("en-US", {
+      return date.toLocaleDateString("ko-KR", {
         year: "numeric",
         month: "short",
         day: "numeric"
@@ -439,8 +437,8 @@
 
     function buildImageCandidates(title) {
       return [
-        `news_image/${title}.jpg`,
-        `news_image/${title}.png`
+        `../news_image/${title}.jpg`,
+        `../news_image/${title}.png`
       ];
     }
 
@@ -456,7 +454,7 @@
               id="${imageId}"
               class="news-image"
               src="${escapeHtml(candidates[0])}"
-              alt="${escapeHtml(item.title)} representative image"
+              alt="${escapeHtml(item.title)} 관련 이미지"
               data-candidates='${escapeHtml(JSON.stringify(candidates))}'
               data-index="0"
               data-card-id="news-card-${index}"
@@ -469,7 +467,7 @@
             <h2 class="news-title">${escapeHtml(item.title)}</h2>
             ${item.summary ? `<p class="news-summary">${escapeHtml(item.summary)}</p>` : ""}
             <div class="news-meta">
-              ${item.link ? `<a class="news-link" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer">Read More</a>` : ""}
+              ${item.link ? `<a class="news-link" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer">자세히 보기</a>` : ""}
             </div>
           </div>
         </article>
@@ -487,22 +485,21 @@
         const newsItems = sortNews(rawData.map(normalizeNewsItem));
 
         if (!newsItems.length) {
-          newsListEl.innerHTML = `<div class="empty-state">No news available.</div>`;
-          summaryEl.textContent = "0 news items";
+          newsListEl.innerHTML = `<div class="empty-state">등록된 뉴스가 없습니다.</div>`;
+          summaryEl.textContent = "뉴스 0건";
           return;
         }
 
         newsListEl.innerHTML = newsItems.map(renderNewsCard).join("");
-        summaryEl.textContent = `${newsItems.length} news items`;
+        summaryEl.textContent = `${newsItems.length}개의 뉴스`;
       } catch (error) {
         console.error(error);
         newsListEl.innerHTML = `
           <div class="error-state">
-            Failed to load news. Make sure <code>data/news.json</code> exists
-            and that you are opening this site through a local server.
+            뉴스를 불러오지 못했습니다. <code>../data/news.json</code> 파일이 있는지, 그리고 로컬 서버로 사이트를 열었는지 확인해주세요.
           </div>
         `;
-        summaryEl.textContent = "Failed to load news";
+        summaryEl.textContent = "뉴스를 불러오지 못했습니다";
       }
     }
 

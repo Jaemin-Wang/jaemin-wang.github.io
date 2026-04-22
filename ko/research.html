@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Research | AIM Lab</title>
+  <title>연구 | 전산재료 연구실</title>
   <style>
     :root {
       --bg: #f7f9fc;
@@ -351,66 +351,64 @@
   <header class="site-header">
     <div class="site-header-inner">
       <div class="logo-wrap">
-        <a href="index.html" class="logo-link" aria-label="Go to home">
+        <a href="index.html" class="logo-link" aria-label="홈으로 이동">
           <div class="logo-img-wrap">
-            <img src="lab logo_web.png" alt="AIM Lab logo" onerror="handleLogoError(this)" />
+            <img src="../lab logo_web.png" alt="AIM Lab logo" onerror="handleLogoError(this)" />
             <div class="logo-placeholder">AIM</div>
           </div>
           <div class="logo-text">
-            <span class="lab-name">AIM Lab</span>
-            <span class="lab-full">Alloy Informatics and Modeling Laboratory</span>
-            <span class="lab-kr">전산재료 연구실</span>
+            <span class="lab-name">전산재료 연구실</span>
+            <span class="lab-full">AIM Lab</span>
+            <span class="lab-kr">Alloy Informatics and Modeling Laboratory</span>
           </div>
         </a>
       </div>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="research.html" class="active">Research</a>
-        <a href="publications.html">Publications</a>
-        <a href="people.html">People</a>
-        <a href="news.html">News</a>
-        <a href="ko/research.html">한국어</a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="index.html">홈</a>
+        <a href="research.html" class="active">연구</a>
+        <a href="publications.html">논문</a>
+        <a href="people.html">구성원</a>
+        <a href="news.html">소식</a>
+        <a href="../research.html">English</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
     <header class="page-header">
-      <h1>Research</h1>
+      <h1>연구</h1>
       <p>
-        Introducing the research of AIM Lab.
+        전산재료 연구실의 연구 분야를 소개합니다.
       </p>
     </header>
 
     <section class="research-overview">
-      <h2>Overview</h2>
+      <h2>개요</h2>
       <p>
-        Our research focuses on two main directions: AI for Materials Science and
-        Computational Materials Science. <br> We develop data-driven and physics-based models
-        for alloy design, microstructure prediction, phase stability, and property optimization,
-        <br> while maintaining physical interpretability and scientific insight.
+        우리 연구실은 <strong>재료인공지능</strong>과 <strong>계산재료과학</strong>, 크게 두 방향에 초점을 맞추고 있습니다. <br>
+        합금 설계, 미세조직 예측, 상 안정성, 물성 최적화를 위해 데이터 기반 및 물리 기반 모델을 개발하며, <br>
+        물리적 해석 가능성을 유지하고 과학적 통찰을 발견하는 연구를 수행합니다.
       </p>
     </section>
 
-    <div class="summary" id="research-summary">Loading research themes...</div>
+    <div class="summary" id="research-summary">연구 주제를 불러오는 중입니다...</div>
 
     <section id="research-grid" class="research-grid">
-      <div class="loading-state">Loading research themes...</div>
+      <div class="loading-state">연구 주제를 불러오는 중입니다...</div>
     </section>
   </main>
 
 <footer class="container">
   <div style="margin-bottom: 0.8rem;">
-    <strong>AIM Lab</strong> · Alloy Informatics and Modeling Laboratory
+    <strong>전산재료 연구실</strong> · AIM Lab
   </div>
 
   <div>
-    <strong>Principal Investigator:</strong> Prof. Jaemin Wang<br>
-    Department of Materials Science and Metallurgical Engineering<br>
-    Kyungpook National University<br>
-    80 Daehakro, Bukgu, Daegu 41566, Republic of Korea<br>
-    Email: <a href="mailto:jmwang@knu.ac.kr">jmwang@knu.ac.kr</a>
+    <strong>지도교수:</strong> 왕재민 교수<br>
+    경북대학교 금속재료공학과<br>
+    대구광역시 북구 대학로 80, 41566, 대한민국<br>
+    이메일: <a href="mailto:jmwang@knu.ac.kr">jmwang@knu.ac.kr</a>
   </div>
 
   <div style="margin-top: 0.6rem;">
@@ -425,10 +423,11 @@
 </footer>
 
   <script>
-    const DATA_URL = "data/research.json";
+    const DATA_URL = "../data/research.json";
 
     const researchGridEl = document.getElementById("research-grid");
     const summaryEl = document.getElementById("research-summary");
+    const LANG_SUFFIX = "_kr";
 
     function escapeHtml(str) {
       if (str === null || str === undefined) return "";
@@ -444,22 +443,40 @@
       return Array.isArray(value) ? value : [];
     }
 
+    function getLocalizedValue(item, key, fallback = "") {
+      const localizedKey = `${key}${LANG_SUFFIX}`;
+      return item?.[localizedKey] || item?.[key] || fallback;
+    }
+
+    function getValue(item, key, fallback = "") {
+      const localizedKey = `${key}`;
+      return item?.[localizedKey] || item?.[key] || fallback;
+    }
+
+    function getLocalizedArray(item, key) {
+      const localizedKey = `${key}${LANG_SUFFIX}`;
+      const localizedValue = item?.[localizedKey];
+      if (Array.isArray(localizedValue)) return localizedValue;
+      return normalizeArray(item?.[key]);
+    }
+
     function normalizeResearchItem(item) {
       return {
-        theme: item.theme || "",
-        subtitle: item.subtitle || "",
-        description: item.description || "",
-        keywords: normalizeArray(item.keywords),
-        methods: normalizeArray(item.methods),
-        topics: normalizeArray(item.topics)
+        theme: getLocalizedValue(item, "theme"),
+        theme_image: getValue(item, "theme"),
+        subtitle: getLocalizedValue(item, "subtitle"),
+        description: getLocalizedValue(item, "description"),
+        keywords: getLocalizedArray(item, "keywords"),
+        methods: getLocalizedArray(item, "methods"),
+        topics: getLocalizedArray(item, "topics")
       };
     }
 
-    function buildImageCandidates(theme) {
+    function buildImageCandidates(theme_image) {
       return [
-        `research_image/${theme}.jpg`,
-        `research_image/${theme}.png`,
-        `research_image/${theme}.gif`
+        `../research_image/${theme_image}.jpg`,
+        `../research_image/${theme_image}.png`,
+        `../research_image/${theme_image}.gif`
       ];
     }
 
@@ -469,53 +486,53 @@
     }
 
     function renderResearchCard(item) {
-        const imageCandidates = buildImageCandidates(item.theme);
+      const imageCandidates = buildImageCandidates(item.theme_image);
 
-        return `
-            <article class="research-card">
-            <div class="research-media">
-                <img
-                class="research-image"
-                src="${escapeHtml(imageCandidates[0])}"
-                alt="${escapeHtml(item.theme)} representative image"
-                data-candidates='${escapeHtml(JSON.stringify(imageCandidates))}'
-                data-index="0"
-                onerror="handleResearchImageError(this)"
-                />
-                <div class="research-placeholder">${escapeHtml(item.theme)}</div>
+      return `
+        <article class="research-card">
+          <div class="research-media">
+            <img
+              class="research-image"
+              src="${escapeHtml(imageCandidates[0])}"
+              alt="${escapeHtml(item.theme)} 대표 이미지"
+              data-candidates='${escapeHtml(JSON.stringify(imageCandidates))}'
+              data-index="0"
+              onerror="handleResearchImageError(this)"
+            />
+            <div class="research-placeholder">${escapeHtml(item.theme)}</div>
+          </div>
+
+          <div class="research-content">
+            <div>
+              <h2 class="research-title">${escapeHtml(item.theme)}</h2>
+              ${item.subtitle ? `<p class="research-subtitle">${escapeHtml(item.subtitle)}</p>` : ""}
             </div>
 
-            <div class="research-content">
-                <div>
-                <h2 class="research-title">${escapeHtml(item.theme)}</h2>
-                ${item.subtitle ? `<p class="research-subtitle">${escapeHtml(item.subtitle)}</p>` : ""}
-                </div>
+            ${item.description ? `<p class="research-description">${escapeHtml(item.description)}</p>` : ""}
 
-                ${item.description ? `<p class="research-description">${escapeHtml(item.description)}</p>` : ""}
+            ${item.keywords.length ? `
+              <div>
+                <p class="research-section-label">핵심 키워드</p>
+                <div class="keyword-row">${renderChipRow(item.keywords)}</div>
+              </div>
+            ` : ""}
 
-                ${item.keywords.length ? `
-                <div>
-                    <p class="research-section-label">Keywords</p>
-                    <div class="keyword-row">${renderChipRow(item.keywords)}</div>
-                </div>
-                ` : ""}
+            ${item.methods.length ? `
+              <div>
+                <p class="research-section-label">연구 방법</p>
+                <div class="method-row">${renderChipRow(item.methods)}</div>
+              </div>
+            ` : ""}
 
-                ${item.methods.length ? `
-                <div>
-                    <p class="research-section-label">Methods</p>
-                    <div class="method-row">${renderChipRow(item.methods)}</div>
-                </div>
-                ` : ""}
-
-                ${item.topics.length ? `
-                <div>
-                    <p class="research-section-label">Representative Topics</p>
-                    <div class="topic-row">${renderChipRow(item.topics)}</div>
-                </div>
-                ` : ""}
-            </div>
-            </article>
-        `;
+            ${item.topics.length ? `
+              <div>
+                <p class="research-section-label">대표 주제</p>
+                <div class="topic-row">${renderChipRow(item.topics)}</div>
+              </div>
+            ` : ""}
+          </div>
+        </article>
+      `;
     }
 
     async function loadResearch() {
@@ -529,42 +546,42 @@
         const researchItems = rawData.map(normalizeResearchItem);
 
         if (!researchItems.length) {
-          researchGridEl.innerHTML = `<div class="empty-state">No research themes available.</div>`;
-          summaryEl.textContent = "0 research themes";
+          researchGridEl.innerHTML = `<div class="empty-state">표시할 연구 주제가 없습니다.</div>`;
+          summaryEl.textContent = "연구 주제 0개";
           return;
         }
 
         researchGridEl.innerHTML = researchItems.map(renderResearchCard).join("");
-        summaryEl.textContent = `${researchItems.length} research themes`;
+        summaryEl.textContent = `연구 주제 ${researchItems.length}개`;
       } catch (error) {
         console.error(error);
         researchGridEl.innerHTML = `
           <div class="error-state">
-            Failed to load research themes. Make sure <code>data/research.json</code> exists
-            and that you are opening this site through a local server.
+            연구 주제를 불러오지 못했습니다. <code>../data/research.json</code> 파일이 존재하는지,
+            그리고 사이트를 로컬 서버 환경에서 열고 있는지 확인해 주세요.
           </div>
         `;
-        summaryEl.textContent = "Failed to load research themes";
+        summaryEl.textContent = "연구 주제를 불러오지 못했습니다";
       }
     }
 
     function handleResearchImageError(img) {
-        const candidates = JSON.parse(img.dataset.candidates || "[]");
-        let index = Number(img.dataset.index || 0);
+      const candidates = JSON.parse(img.dataset.candidates || "[]");
+      let index = Number(img.dataset.index || 0);
 
-        index += 1;
+      index += 1;
 
-        if (index < candidates.length) {
-            img.dataset.index = String(index);
-            img.src = candidates[index];
-            return;
-        }
+      if (index < candidates.length) {
+        img.dataset.index = String(index);
+        img.src = candidates[index];
+        return;
+      }
 
-        img.style.display = "none";
-        const placeholder = img.parentElement.querySelector(".research-placeholder");
-        if (placeholder) {
-            placeholder.style.display = "flex";
-        }
+      img.style.display = "none";
+      const placeholder = img.parentElement.querySelector(".research-placeholder");
+      if (placeholder) {
+        placeholder.style.display = "flex";
+      }
     }
 
     function handleLogoError(img) {

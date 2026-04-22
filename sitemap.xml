@@ -4,6 +4,10 @@
   <url>
     <loc>https://aimlab.knu.ac.kr/</loc>
   </url>
+  
+  <url>
+    <loc>https://aimlab.knu.ac.kr/index.html</loc>
+  </url>
 
   <url>
     <loc>https://aimlab.knu.ac.kr/research.html</loc>
@@ -19,6 +23,26 @@
 
   <url>
     <loc>https://aimlab.knu.ac.kr/news.html</loc>
+  </url>
+
+  <url>
+    <loc>https://aimlab.knu.ac.kr/ko/index.html</loc>
+  </url>
+
+  <url>
+    <loc>https://aimlab.knu.ac.kr/ko/research.html</loc>
+  </url>
+
+  <url>
+    <loc>https://aimlab.knu.ac.kr/ko/publications.html</loc>
+  </url>
+
+  <url>
+    <loc>https://aimlab.knu.ac.kr/ko/people.html</loc>
+  </url>
+
+  <url>
+    <loc>https://aimlab.knu.ac.kr/ko/news.html</loc>
   </url>
 
 </urlset>

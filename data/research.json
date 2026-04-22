@@ -1,14 +1,24 @@
 [
   {
     "theme": "AI for Materials Science",
+    "theme_kr": "재료인공지능",
     "subtitle": "Physics-based machine learning and explainable AI for materials design",
+    "subtitle_kr": "재료 설계를 위한 물리 기반 머신러닝과 설명가능한 인공지능",
     "description": "We develop interpretable and physics-based machine learning frameworks for alloy design, process optimization, and structure-property prediction. Our work emphasizes scientific interpretability, physically meaningful descriptors, and reliable inverse design strategies for accelerating materials discovery.",
+    "description_kr": "저희는 합금 설계, 공정 최적화, 구조-물성 예측을 위한 해석 가능하고 물리 기반의 머신러닝 프레임워크를 개발합니다. 연구의 핵심은 과학적 해석 가능성, 물리적으로 의미 있는 기술자, 그리고 신뢰할 수 있는 역설계 전략을 통해 신소재 발굴을 가속하는 데 있습니다.",
     "keywords": [
       "Materials AI",
       "Physics-based Machine Learning",
       "Explainable AI",
       "Inverse Design",
       "Alloy Design"
+    ],
+    "keywords_kr": [
+      "재료 인공지능",
+      "물리 기반 머신러닝",
+      "설명가능한 인공지능",
+      "역설계",
+      "합금 설계"
     ],
     "methods": [
       "Graph Neural Networks",
@@ -17,24 +27,48 @@
       "Neural Networks",
       "Interpretable Modeling"
     ],
+    "methods_kr": [
+      "그래프 신경망",
+      "XGBoost",
+      "SHAP",
+      "신경망",
+      "해석 가능한 모델링"
+    ],
     "topics": [
       "High-Entropy Alloy Design",
       "Hydrogen Storage Alloy Discovery",
       "Additive Manufacturing Optimization",
       "Solidification Prediction",
       "Microstructure-aware Design"
+    ],
+    "topics_kr": [
+      "고엔트로피 합금 설계",
+      "수소 저장 합금 발굴",
+      "적층제조 최적화",
+      "응고 예측",
+      "미세조직 기반 설계"
     ]
   },
   {
     "theme": "Computational Materials Science",
+    "theme_kr": "계산재료과학",
     "subtitle": "Thermodynamics, atomistic simulation, and multiscale computational modeling",
+    "subtitle_kr": "열역학, 원자 단위 시뮬레이션, 그리고 멀티스케일 계산 모델링",
     "description": "We use computational materials science tools to understand alloy thermodynamics, phase stability, atomistic behavior, and microstructure evolution. Our research integrates CALPHAD, molecular dynamics, interatomic potentials, machine-learning potentials, and density functional theory to build predictive and physically grounded frameworks for advanced materials design.",
+    "description_kr": "저희는 계산재료과학 도구를 활용하여 합금의 열역학, 상 안정성, 원자 수준 거동, 그리고 미세조직 거동을 이해합니다. 연구에서는 CALPHAD, 분자동역학, 원자간 퍼텐셜, 머신러닝 퍼텐셜, 밀도범함수이론을 통합하여 고급 재료 설계를 위한 예측 가능하고 물리적으로 타당한 프레임워크를 구축합니다.",
     "keywords": [
       "Computational Materials Science",
       "Thermodynamics",
       "Atomistic Simulation",
       "Multiscale Modeling",
       "Phase Stability"
+    ],
+    "keywords_kr": [
+      "계산재료과학",
+      "열역학",
+      "원자 단위 시뮬레이션",
+      "멀티스케일 모델링",
+      "상 안정성"
     ],
     "methods": [
       "CALPHAD",
@@ -43,12 +77,26 @@
       "Machine Learning Potential",
       "DFT"
     ],
+    "methods_kr": [
+      "CALPHAD",
+      "분자동역학",
+      "2NN MEAM",
+      "머신러닝 퍼텐셜",
+      "DFT"
+    ],
     "topics": [
       "Phase Diagram and Thermodynamic Modeling",
       "Interatomic Potential Development",
       "Microstructure Evolution",
       "Diffusion and Precipitation",
       "Composition-Structure-Property Relations"
+    ],
+    "topics_kr": [
+      "상도 및 열역학 모델링",
+      "원자간 퍼텐셜 개발",
+      "미세조직 진화",
+      "확산 및 석출",
+      "조성-구조-물성 상관관계"
     ]
   }
 ]

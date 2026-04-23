@@ -739,5 +739,30 @@
     "corresponding_author": [
       "Ibrahim Ondicho"
     ]
+  },
+  {
+    "title": "Deformation zone connectivity governs time-dependent load relaxation in Cu-Zr-based metallic glasses",
+    "authors": [
+      "Anurag Bajpai",
+      "Jaemin Wang",
+      "Dierk Raabe"
+    ],
+    "journal": "Computational Materials Science",
+    "year": 2026,
+    "volume": "269",
+    "issue": "",
+    "pages": "114716",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.commatsci.2026.114716",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Anurag Bajpai"
+    ],
+    "corresponding_author": [
+      "Anurag Bajpai",
+      "Dierk Raabe"
+    ]
   }
 ]

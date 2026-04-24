@@ -775,10 +775,10 @@
         return;
       }
 
-      const postdocs = sortByName(current.filter(p => /postdoc|researcher/i.test(p.role)));
+      const postdocs = sortByName(current.filter(p => /postdoc/i.test(p.role)));
       const phd = sortByName(current.filter(p => /ph\.?d/i.test(p.role)));
       const ms = sortByName(current.filter(p => /\bm\.?s\b|master/i.test(p.role)));
-      const undergrad = sortByName(current.filter(p => /undergraduate|intern/i.test(p.role)));
+      const undergrad = sortByName(current.filter(p => /undergraduate/i.test(p.role)));
       const others = sortByName(current.filter(p =>
         !postdocs.includes(p) &&
         !phd.includes(p) &&
@@ -787,10 +787,10 @@
       ));
 
       const html = [
-        renderSimpleGroupedSection("Postdocs / Researchers", postdocs),
+        renderSimpleGroupedSection("Postdocs", postdocs),
         renderSimpleGroupedSection("Ph.D. Students", phd),
         renderSimpleGroupedSection("M.S. Students", ms),
-        renderSimpleGroupedSection("Undergraduate Researchers / Interns", undergrad),
+        renderSimpleGroupedSection("Undergraduate Researchers", undergrad),
         renderSimpleGroupedSection("Other Members", others)
       ].filter(Boolean).join("");
 

@@ -769,7 +769,7 @@
         return;
       }
 
-      const postdocs = sortByName(current.filter(p => /postdoc|researcher|박사후|연구원/i.test(p.role)));
+      const postdocs = sortByName(current.filter(p => /postdoc|박사후/i.test(p.role)));
       const phd = sortByName(current.filter(p => /ph\.?d|박사/i.test(p.role)));
       const ms = sortByName(current.filter(p => /\bm\.?s\b|master|석사/i.test(p.role)));
       const undergrad = sortByName(current.filter(p => /undergraduate|intern|학부|인턴/i.test(p.role)));
@@ -781,10 +781,10 @@
       ));
 
       const html = [
-        renderSimpleGroupedSection("박사후연구원 / 연구원", postdocs),
+        renderSimpleGroupedSection("박사후연구원", postdocs),
         renderSimpleGroupedSection("박사과정", phd),
         renderSimpleGroupedSection("석사과정", ms),
-        renderSimpleGroupedSection("학부연구생 / 인턴", undergrad),
+        renderSimpleGroupedSection("학부연구생", undergrad),
         renderSimpleGroupedSection("기타 구성원", others)
       ].filter(Boolean).join("");
 

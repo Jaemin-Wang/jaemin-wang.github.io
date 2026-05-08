@@ -285,6 +285,16 @@
       color: #b91c1c;
     }
 
+    .news-card[href] {
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .news-card[href]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+    }
+
     @media (max-width: 900px) {
       .site-header-inner {
         align-items: flex-start;
@@ -447,10 +457,13 @@
     function renderNewsCard(item, index) {
       const candidates = buildImageCandidates(item.title);
       const imageId = `news-image-${index}`;
-      const placeholderId = `news-placeholder-${index}`;
+      const cardTag = item.link ? "a" : "article";
+      const linkAttrs = item.link
+        ? `href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(item.title)} Read More"`
+        : "";
 
       return `
-        <article class="news-card" id="news-card-${index}">
+        <${cardTag} class="news-card" id="news-card-${index}" ${linkAttrs}>
           <div class="news-media">
             <img
               id="${imageId}"
@@ -468,14 +481,11 @@
             ${item.date ? `<p class="news-date">${escapeHtml(formatDate(item.date))}</p>` : ""}
             <h2 class="news-title">${escapeHtml(item.title)}</h2>
             ${item.summary ? `<p class="news-summary">${escapeHtml(item.summary)}</p>` : ""}
-            <div class="news-meta">
-              ${item.link ? `<a class="news-link" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer">Read More</a>` : ""}
-            </div>
           </div>
-        </article>
+        </${cardTag}>
       `;
     }
-
+    
     async function loadNews() {
       try {
         const response = await fetch(DATA_URL);

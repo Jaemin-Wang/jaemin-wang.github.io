@@ -790,5 +790,33 @@
       "Jaemin Wang",
       "Dierk Raabe"
     ]
+  },
+  {
+    "title": "Attention-enhanced variational learning for physically informed discovery of exceptionally hard multicomponent bulk metallic glasses",
+    "authors": [
+      "Anurag Bajpai",
+      "Jaemin Wang",
+      "Barak Ratzker",
+      "Bilgehan Murat Şeșen",
+      "Florian Kark",
+      "Dierk Raabe"
+    ],
+    "journal": "Nature Communications",
+    "year": 2026,
+    "volume": "17",
+    "issue": "1",
+    "pages": "4266",
+    "featured": false,
+    "doi": "https://doi.org/10.1038/s41467-026-73008-0",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Anurag Bajpai"
+    ],
+    "corresponding_author": [
+      "Anurag Bajpai",
+      "Dierk Raabe"
+    ]
   }
 ]

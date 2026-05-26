@@ -45,4 +45,20 @@
     <loc>https://aimlab.knu.ac.kr/ko/news.html</loc>
   </url>
 
+  <url>
+    <loc>https://aimlab.knu.ac.kr/data/news.json</loc>
+  </url>
+
+  <url>
+    <loc>https://aimlab.knu.ac.kr/data/people.json</loc>
+  </url>
+
+  <url>
+    <loc>https://aimlab.knu.ac.kr/data/publications.json</loc>
+  </url>
+
+  <url>
+    <loc>https://aimlab.knu.ac.kr/data/research.json</loc>
+  </url>
+
 </urlset>

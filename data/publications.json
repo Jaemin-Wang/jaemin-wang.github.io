@@ -818,5 +818,72 @@
       "Anurag Bajpai",
       "Dierk Raabe"
     ]
+  },
+  {
+    "title": "Coupled influence of structural relaxation and compositional complexity on deformation behavior and intermittent plasticity in Cu-Zr-based metallic glasses",
+    "authors": [
+      "Anurag Bajpai",
+      "Jaemin Wang",
+      "Barak Ratzker",
+      "Rebeca Miyar",
+      "Hendrik Holz",
+      "Nilesh P Gurao",
+      "Krishanu Biswas",
+      "Dierk Raabe"
+    ],
+    "journal": "Acta Materialia",
+    "year": 2026,
+    "volume": "315",
+    "issue": "",
+    "pages": "122394",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.actamat.2026.122394",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Anurag Bajpai"
+    ],
+    "corresponding_author": [
+      "Anurag Bajpai",
+      "Krishanu Biswas",
+      "Dierk Raabe"
+    ]
+  },
+  {
+    "title": "Ultrastrong and ductile additively manufactured maraging medium-entropy alloy via cell network-assisted control of reversion transformation",
+    "authors": [
+      "Jae Heung Lee",
+      "Hyeonseok Kwon",
+      "Bon Woo Koo",
+      "Sang Guk Jeong",
+      "Jaemin Wang",
+      "Soung Yeoul Ahn",
+      "Jeong Ah Lee",
+      "Sung Jae Jo",
+      "Stefanus Harjo",
+      "Wu Gong",
+      "Sung Bo Lee",
+      "Soon-Jik Hong",
+      "Sun Ig Hong",
+      "Hyoung Seop Kim"
+    ],
+    "journal": "International Journal of Extreme Manufacturing",
+    "year": 2026,
+    "volume": "8",
+    "issue": "5",
+    "pages": "055508",
+    "featured": false,
+    "doi": "https://doi.org/10.1088/2631-7990/ae6f56",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Jae Heung Lee"
+    ],
+    "corresponding_author": [
+      "Hyeonseok Kwon",
+      "Hyoung Seop Kim"
+    ]
   }
 ]

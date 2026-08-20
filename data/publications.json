@@ -885,5 +885,36 @@
       "Hyeonseok Kwon",
       "Hyoung Seop Kim"
     ]
+  },
+  {
+    "title": "Effect of sigma phase formation on short-and long-range ordering in a metastable medium-entropy alloy",
+    "authors": [
+      "Ibrahim Ondicho",
+      "Majid Laleh",
+      "Lachlan Smillie",
+      "Jaemin Wang",
+      "Jae Heung Lee",
+      "Hyeonseok Kwon",
+      "Byeong-Joo Lee",
+      "Germanas Peleckis",
+      "Hyoung Seop Kim",
+      "Azdiar A Gazder"
+    ],
+    "journal": "Materials Today Nano",
+    "year": 2026,
+    "volume": "35",
+    "issue": "",
+    "pages": "100906",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.mtnano.2026.100906",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Ibrahim Ondicho"
+    ],
+    "corresponding_author": [
+      "Ibrahim Ondicho"
+    ]
   }
 ]

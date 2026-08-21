@@ -204,21 +204,40 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow: hidden;
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      min-height: 180px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .news-card.no-image {
+    .news-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+    }
+
+    .news-card-main {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      min-height: 180px;
+      align-items: stretch;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .news-card-main:focus-visible {
+      box-shadow: inset 0 0 0 3px var(--primary-soft);
+    }
+
+    .news-card.no-image .news-card-main {
       grid-template-columns: 1fr;
     }
 
     .news-media {
-        height: 180px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #eef2f7;
+      min-height: 180px;
+      height: auto;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #eef2f7;
     }
 
     .news-card.no-image .news-media {
@@ -226,9 +245,10 @@
     }
 
     .news-image {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .news-content {
@@ -236,6 +256,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.7rem;
+      min-width: 0;
     }
 
     .news-date {
@@ -259,10 +280,58 @@
       color: var(--text);
     }
 
-    .news-meta {
+    .news-expand-label {
       margin-top: auto;
+      padding-top: 0.25rem;
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .news-detail {
+      padding: 1.25rem;
+      border-top: 1px solid var(--line);
+      background: #fbfdff;
+    }
+
+    .news-detail[hidden] {
+      display: none;
+    }
+
+    .news-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: start;
+      gap: 1rem;
+    }
+
+    .news-gallery-item {
+      margin: 0;
+      min-width: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--surface);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+    }
+
+    .news-gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: initial;
+      background: transparent;
+      border: 0;
+    }
+
+    .gallery-empty {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .news-detail-actions {
+      margin-top: 1rem;
       display: flex;
-      justify-content: flex-start;
       align-items: center;
       gap: 0.75rem;
       flex-wrap: wrap;
@@ -271,13 +340,13 @@
     .news-link {
       display: inline-flex;
       align-items: center;
-      padding: 0.45rem 0.8rem;
+      padding: 0.5rem 0.9rem;
       border-radius: 999px;
       border: 1px solid var(--line);
       background: #fff;
-      color: var(--accent);
+      color: var(--primary);
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .news-link:hover {
@@ -294,16 +363,6 @@
     .error-state {
       color: #b91c1c;
     }
-      
-    .news-card[href] {
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .news-card[href]:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
-    }
 
     @media (max-width: 900px) {
       .site-header-inner {
@@ -317,7 +376,7 @@
         justify-content: flex-start;
       }
 
-      .news-card {
+      .news-card-main {
         grid-template-columns: 1fr;
       }
 
@@ -327,8 +386,12 @@
         min-height: 220px;
       }
 
-      .news-card.no-image {
+      .news-card.no-image .news-card-main {
         grid-template-columns: 1fr;
+      }
+
+      .news-gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
@@ -340,6 +403,10 @@
 
       .news-media {
         min-height: 190px;
+      }
+
+      .news-gallery {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -439,7 +506,10 @@
         date: item.date || "",
         title: item.title || "",
         summary: item.summary || "",
-        link: item.link || ""
+        link: item.link || "",
+        images: Array.isArray(item.images)
+          ? item.images.filter((src) => typeof src === "string" && src.trim())
+          : []
       };
     }
 
@@ -463,43 +533,163 @@
       });
     }
 
-    function buildImageCandidates(title) {
+    // news.json is shared with the English page. Relative image paths such as
+    // "news_image/photo.jpg" therefore need one extra ../ from /ko/news.html.
+    function resolveImagePath(src) {
+      const value = String(src || "").trim();
+      if (!value) return "";
+      if (/^(?:[a-z][a-z0-9+.-]*:|\/\/|\/|\.\.\/)/i.test(value)) return value;
+      return `../${value.replace(/^\.\//, "")}`;
+    }
+
+    function buildLegacyImageCandidates(title) {
       return [
         `../news_image/${title}.jpg`,
         `../news_image/${title}.png`
       ];
     }
 
-    function renderNewsCard(item, index) {
-      const candidates = buildImageCandidates(item.title);
-      const imageId = `news-image-${index}`;
-      const cardTag = item.link ? "a" : "article";
-      const linkAttrs = item.link
-        ? `href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(item.title)} 자세히 보기"`
-        : "";
+    function getRepresentativeCandidates(item) {
+      if (item.images.length) return item.images.map(resolveImagePath);
+      return buildLegacyImageCandidates(item.title);
+    }
+
+    function renderGallery(item, index) {
+      const galleryId = `news-gallery-${index}`;
+
+      if (!item.images.length) {
+        const legacyCandidates = buildLegacyImageCandidates(item.title);
+        return `
+          <div class="news-gallery" id="${galleryId}">
+            <figure class="news-gallery-item">
+              <img
+                src="${escapeHtml(legacyCandidates[0])}"
+                alt="${escapeHtml(item.title)} 관련 사진"
+                loading="lazy"
+                data-candidates='${escapeHtml(JSON.stringify(legacyCandidates))}'
+                data-index="0"
+                data-gallery-id="${galleryId}"
+                onerror="handleLegacyGalleryImageError(this)"
+              />
+            </figure>
+          </div>
+        `;
+      }
 
       return `
-        <${cardTag} class="news-card" id="news-card-${index}" ${linkAttrs}>
+        <div class="news-gallery" id="${galleryId}">
+          ${item.images.map((src, imageIndex) => `
+            <figure class="news-gallery-item">
+              <img
+                src="${escapeHtml(resolveImagePath(src))}"
+                alt="${escapeHtml(item.title)} 관련 사진 ${imageIndex + 1}"
+                loading="lazy"
+                data-gallery-id="${galleryId}"
+                onerror="handleGalleryImageError(this)"
+              />
+            </figure>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderNewsCard(item, index) {
+      const candidates = getRepresentativeCandidates(item);
+      const hasImageCandidate = candidates.length > 0;
+      const imageId = `news-image-${index}`;
+      const cardId = `news-card-${index}`;
+      const detailId = `news-detail-${index}`;
+
+      const representativeImageHtml = hasImageCandidate
+        ? `
           <div class="news-media">
             <img
               id="${imageId}"
               class="news-image"
               src="${escapeHtml(candidates[0])}"
-              alt="${escapeHtml(item.title)} 관련 이미지"
+              alt="${escapeHtml(item.title)} 대표 이미지"
               data-candidates='${escapeHtml(JSON.stringify(candidates))}'
               data-index="0"
-              data-card-id="news-card-${index}"
+              data-card-id="${cardId}"
               onerror="handleNewsImageError(this)"
             />
           </div>
+        `
+        : "";
 
-          <div class="news-content">
-            ${item.date ? `<p class="news-date">${escapeHtml(formatDate(item.date))}</p>` : ""}
-            <h2 class="news-title">${escapeHtml(item.title)}</h2>
-            ${item.summary ? `<p class="news-summary">${escapeHtml(item.summary)}</p>` : ""}
+      const externalLinkHtml = item.link
+        ? `
+          <div class="news-detail-actions">
+            <a
+              class="news-link"
+              href="${escapeHtml(item.link)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              관련 링크 열기 →
+            </a>
           </div>
-        </${cardTag}>
+        `
+        : "";
+
+      return `
+        <article
+          class="news-card${hasImageCandidate ? "" : " no-image"}"
+          id="${cardId}"
+          data-expanded="false"
+        >
+          <div
+            class="news-card-main"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+            aria-controls="${detailId}"
+            aria-label="${escapeHtml(item.title)} 상세 내용 펼치기"
+          >
+            ${representativeImageHtml}
+
+            <div class="news-content">
+              ${item.date ? `<p class="news-date">${escapeHtml(formatDate(item.date))}</p>` : ""}
+              <h2 class="news-title">${escapeHtml(item.title)}</h2>
+              ${item.summary ? `<p class="news-summary">${escapeHtml(item.summary)}</p>` : ""}
+              <span class="news-expand-label" aria-hidden="true">사진 보기 ↓</span>
+            </div>
+          </div>
+
+          <div class="news-detail" id="${detailId}" hidden>
+            ${renderGallery(item, index)}
+            ${externalLinkHtml}
+          </div>
+        </article>
       `;
+    }
+
+    function setupExpandableCards() {
+      document.querySelectorAll(".news-card-main").forEach((main) => {
+        const toggleCard = () => {
+          const card = main.closest(".news-card");
+          const detail = card?.querySelector(".news-detail");
+          const label = card?.querySelector(".news-expand-label");
+          if (!card || !detail) return;
+
+          const nextExpanded = card.dataset.expanded !== "true";
+          card.dataset.expanded = String(nextExpanded);
+          main.setAttribute("aria-expanded", String(nextExpanded));
+          detail.hidden = !nextExpanded;
+
+          if (label) {
+            label.textContent = nextExpanded ? "사진 접기 ↑" : "사진 보기 ↓";
+          }
+        };
+
+        main.addEventListener("click", toggleCard);
+        main.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            toggleCard();
+          }
+        });
+      });
     }
 
     async function loadNews() {
@@ -519,12 +709,14 @@
         }
 
         newsListEl.innerHTML = newsItems.map(renderNewsCard).join("");
+        setupExpandableCards();
         summaryEl.textContent = `${newsItems.length}개의 뉴스`;
       } catch (error) {
         console.error(error);
         newsListEl.innerHTML = `
           <div class="error-state">
-            뉴스를 불러오지 못했습니다. <code>../data/news.json</code> 파일이 있는지, 그리고 로컬 서버로 사이트를 열었는지 확인해주세요.
+            뉴스를 불러오지 못했습니다. <code>../data/news.json</code> 파일이 있는지,
+            그리고 로컬 서버로 사이트를 열었는지 확인해주세요.
           </div>
         `;
         summaryEl.textContent = "뉴스를 불러오지 못했습니다";
@@ -533,9 +725,7 @@
 
     function handleNewsImageError(img) {
       const candidates = JSON.parse(img.dataset.candidates || "[]");
-      let index = Number(img.dataset.index || 0);
-
-      index += 1;
+      const index = Number(img.dataset.index || 0) + 1;
 
       if (index < candidates.length) {
         img.dataset.index = String(index);
@@ -545,14 +735,36 @@
 
       const cardId = img.dataset.cardId;
       const card = document.getElementById(cardId);
-      if (card) {
-        card.classList.add("no-image");
-      }
+      if (card) card.classList.add("no-image");
 
       const media = img.closest(".news-media");
-      if (media) {
-        media.remove();
+      if (media) media.remove();
+    }
+
+    function handleGalleryImageError(img) {
+      const gallery = document.getElementById(img.dataset.galleryId || "");
+      const item = img.closest(".news-gallery-item");
+      if (item) item.remove();
+
+      if (gallery && gallery.children.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "gallery-empty";
+        empty.textContent = "이 뉴스에 연결된 사진을 불러오지 못했습니다.";
+        gallery.replaceWith(empty);
       }
+    }
+
+    function handleLegacyGalleryImageError(img) {
+      const candidates = JSON.parse(img.dataset.candidates || "[]");
+      const nextIndex = Number(img.dataset.index || 0) + 1;
+
+      if (nextIndex < candidates.length) {
+        img.dataset.index = String(nextIndex);
+        img.src = candidates[nextIndex];
+        return;
+      }
+
+      handleGalleryImageError(img);
     }
 
     function handleLogoError(img) {
@@ -564,6 +776,8 @@
     }
 
     window.handleNewsImageError = handleNewsImageError;
+    window.handleGalleryImageError = handleGalleryImageError;
+    window.handleLegacyGalleryImageError = handleLegacyGalleryImageError;
     window.handleLogoError = handleLogoError;
 
     loadNews();

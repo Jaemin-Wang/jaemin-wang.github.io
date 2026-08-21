@@ -508,6 +508,7 @@ class NewsConfig(DatasetConfig):
             "title": "",
             "summary": "",
             "link": "",
+            "images": [],
         }
 
     def get_label(self, item: dict[str, Any]) -> str:
@@ -538,12 +539,17 @@ class NewsConfig(DatasetConfig):
         fields["summary"] = QTextEdit(item.get("summary", ""))
         fields["summary"].setMinimumHeight(100)
         fields["link"] = QLineEdit(item.get("link", ""))
+        fields["images"] = [
+            str(path).strip()
+            for path in item.get("images", [])
+            if str(path).strip()
+        ]
 
         layout.addRow("Date (YYYY-MM-DD)", fields["date"])
         layout.addRow("Title", fields["title"])
         layout.addRow("Summary", fields["summary"])
         layout.addRow("External Link", fields["link"])
-        layout.addRow(app.make_image_widget(item))
+        layout.addRow("Images", app.make_news_images_widget(fields))
 
         app.bind_form(fields)
         return w
@@ -589,7 +595,8 @@ class AimLabAdmin(QMainWindow):
         header_layout = QVBoxLayout(header)
         desc = QLabel(
             "앱이 위치한 디렉토리를 사이트 루트로 간주합니다. "
-            "data/, photo/, research_image/, news_image/를 자동으로 사용합니다."
+            "data/, photo/, research_image/, news_image/를 자동으로 사용합니다. "
+            "News 탭에서는 여러 이미지를 등록하고 표시 순서를 관리할 수 있습니다."
         )
         desc.setWordWrap(True)
         header_layout.addWidget(desc)
@@ -914,6 +921,246 @@ class AimLabAdmin(QMainWindow):
         self.image_widget.refresh_btn.clicked.connect(self.refresh_image_preview)
         self.image_widget.fileDropped.connect(self.upload_current_image_from_path)
         return self.image_widget
+
+    def make_news_images_widget(self, fields: dict[str, Any]) -> QWidget:
+        """Create an editor for the News ``images`` array.
+
+        Files selected here are copied into ``news_image/`` immediately.
+        Their site-relative paths are stored in ``fields["images"]``.
+        The first image is used as the representative image by news.html.
+        """
+        wrapper = QWidget()
+        layout = QVBoxLayout(wrapper)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(8)
+
+        hint = QLabel(
+            "여러 이미지를 등록할 수 있습니다. 첫 번째 이미지가 뉴스 카드의 대표 이미지가 됩니다. "
+            "순서를 바꾸면 갤러리 표시 순서도 함께 바뀝니다."
+        )
+        hint.setWordWrap(True)
+        hint.setStyleSheet("color: #6b7280;")
+        layout.addWidget(hint)
+
+        image_list = ReorderableListWidget()
+        image_list.setSelectionMode(QAbstractItemView.SingleSelection)
+        image_list.setDragDropMode(QAbstractItemView.InternalMove)
+        image_list.setDefaultDropAction(Qt.MoveAction)
+        image_list.setMinimumHeight(150)
+        layout.addWidget(image_list)
+
+        preview = QLabel("이미지를 선택하면 미리보기가 표시됩니다.")
+        preview.setAlignment(Qt.AlignCenter)
+        preview.setMinimumSize(240, 150)
+        preview.setMaximumHeight(260)
+        preview.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        preview.setStyleSheet(
+            "border: 1px dashed #94a3b8; border-radius: 10px; "
+            "background: #f8fafc; color: #64748b; padding: 8px;"
+        )
+        layout.addWidget(preview)
+
+        button_row = QHBoxLayout()
+        add_btn = QPushButton("이미지 추가")
+        remove_btn = QPushButton("목록에서 제거")
+        up_btn = QPushButton("위로")
+        down_btn = QPushButton("아래로")
+        refresh_btn = QPushButton("미리보기 새로고침")
+        button_row.addWidget(add_btn)
+        button_row.addWidget(remove_btn)
+        button_row.addWidget(up_btn)
+        button_row.addWidget(down_btn)
+        button_row.addWidget(refresh_btn)
+        button_row.addStretch(1)
+        layout.addLayout(button_row)
+
+        note = QLabel(
+            "※ '목록에서 제거'는 news.json의 연결만 제거하며 실제 이미지 파일은 삭제하지 않습니다."
+        )
+        note.setWordWrap(True)
+        note.setStyleSheet("color: #6b7280; font-size: 12px;")
+        layout.addWidget(note)
+
+        def normalized_images() -> list[str]:
+            values = fields.get("images", [])
+            if not isinstance(values, list):
+                return []
+            result: list[str] = []
+            for value in values:
+                path = str(value).strip().replace("\\\\", "/")
+                if path and path not in result:
+                    result.append(path)
+            return result
+
+        def populate_list(select_row: int | None = None) -> None:
+            image_list.blockSignals(True)
+            image_list.clear()
+            for index, rel_path in enumerate(normalized_images()):
+                prefix = "대표 · " if index == 0 else ""
+                item = QListWidgetItem(f"{prefix}{rel_path}")
+                item.setData(Qt.UserRole, rel_path)
+                image_list.addItem(item)
+
+            if image_list.count():
+                row = 0 if select_row is None else max(0, min(select_row, image_list.count() - 1))
+                image_list.setCurrentRow(row)
+            image_list.blockSignals(False)
+            refresh_preview()
+
+        def sync_images_from_list() -> None:
+            paths: list[str] = []
+            for row in range(image_list.count()):
+                item = image_list.item(row)
+                rel_path = item.data(Qt.UserRole)
+                if not rel_path:
+                    text = item.text()
+                    rel_path = text.removeprefix("대표 · ").strip()
+                rel_path = str(rel_path).strip().replace("\\\\", "/")
+                if rel_path and rel_path not in paths:
+                    paths.append(rel_path)
+
+            fields["images"] = paths
+            selected = image_list.currentRow()
+            populate_list(selected if selected >= 0 else None)
+            self._on_form_changed()
+
+        def resolve_image_path(rel_path: str) -> Path:
+            cleaned = rel_path.strip().replace("\\\\", "/")
+            path = Path(cleaned)
+            if path.is_absolute():
+                return path
+            return self.root_dir / path
+
+        def refresh_preview() -> None:
+            item = image_list.currentItem()
+            if item is None:
+                preview.setPixmap(QPixmap())
+                preview.setText("등록된 이미지가 없습니다.")
+                return
+
+            rel_path = str(item.data(Qt.UserRole) or "").strip()
+            path = resolve_image_path(rel_path)
+            if not path.exists():
+                preview.setPixmap(QPixmap())
+                preview.setText(f"파일을 찾을 수 없습니다.\\n{rel_path}")
+                return
+
+            pixmap = QPixmap(str(path))
+            if pixmap.isNull():
+                preview.setPixmap(QPixmap())
+                preview.setText(f"미리보기를 불러올 수 없습니다.\\n{rel_path}")
+                return
+
+            target = preview.size()
+            if target.width() < 10 or target.height() < 10:
+                target = preview.maximumSize()
+            scaled = pixmap.scaled(
+                target,
+                Qt.KeepAspectRatio,
+                Qt.SmoothTransformation,
+            )
+            preview.setPixmap(scaled)
+            preview.setText("")
+
+        def unique_target_for(source: Path) -> Path:
+            target_folder = self.root_dir / "news_image"
+            target_folder.mkdir(parents=True, exist_ok=True)
+
+            suffix = source.suffix.lower()
+            if suffix == ".jpeg":
+                suffix = ".jpg"
+            stem = self.sanitize_filename(source.stem) or "news_image"
+            candidate = target_folder / f"{stem}{suffix}"
+
+            counter = 2
+            while candidate.exists():
+                try:
+                    if source.resolve() == candidate.resolve():
+                        return candidate
+                except OSError:
+                    pass
+                candidate = target_folder / f"{stem}_{counter}{suffix}"
+                counter += 1
+            return candidate
+
+        def add_images() -> None:
+            file_paths, _ = QFileDialog.getOpenFileNames(
+                self,
+                "뉴스 이미지 선택",
+                str(self.root_dir),
+                "Images (*.jpg *.jpeg *.png *.gif *.webp)",
+            )
+            if not file_paths:
+                return
+
+            values = normalized_images()
+            added = 0
+            for file_path in file_paths:
+                source = Path(file_path)
+                suffix = source.suffix.lower()
+                if suffix not in {".jpg", ".jpeg", ".png", ".gif", ".webp"}:
+                    continue
+
+                target = unique_target_for(source)
+                try:
+                    same_file = False
+                    try:
+                        same_file = source.resolve() == target.resolve()
+                    except OSError:
+                        pass
+
+                    if not same_file:
+                        shutil.copy2(source, target)
+
+                    rel_path = target.relative_to(self.root_dir).as_posix()
+                    if rel_path not in values:
+                        values.append(rel_path)
+                        added += 1
+                except Exception as exc:
+                    self._warn(f"{source.name} 이미지 추가 실패: {exc}")
+
+            fields["images"] = values
+            populate_list(len(values) - 1 if values else None)
+            if added:
+                self._on_form_changed()
+                self.statusBar().showMessage(
+                    f"뉴스 이미지 {added}개 추가됨. Apply changes 후 Save JSON to disk를 눌러 저장하세요."
+                )
+
+        def remove_selected() -> None:
+            row = image_list.currentRow()
+            if row < 0:
+                return
+            values = normalized_images()
+            if row < len(values):
+                del values[row]
+            fields["images"] = values
+            populate_list(min(row, len(values) - 1) if values else None)
+            self._on_form_changed()
+
+        def move_selected(offset: int) -> None:
+            row = image_list.currentRow()
+            if row < 0:
+                return
+            values = normalized_images()
+            new_row = row + offset
+            if new_row < 0 or new_row >= len(values):
+                return
+            values[row], values[new_row] = values[new_row], values[row]
+            fields["images"] = values
+            populate_list(new_row)
+            self._on_form_changed()
+
+        add_btn.clicked.connect(add_images)
+        remove_btn.clicked.connect(remove_selected)
+        up_btn.clicked.connect(lambda: move_selected(-1))
+        down_btn.clicked.connect(lambda: move_selected(1))
+        refresh_btn.clicked.connect(refresh_preview)
+        image_list.currentRowChanged.connect(lambda _: refresh_preview())
+        image_list.orderChanged.connect(sync_images_from_list)
+
+        populate_list()
+        return wrapper
 
     def _on_form_changed(self) -> None:
         self._update_preview()

@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIM Lab Admin</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #1d4ed8;
+      --danger: #b91c1c;
+      --success: #166534;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      --radius: 16px;
+      --max-width: 1240px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    button, input, textarea, select { font: inherit; }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.72rem 0.82rem;
+      background: #fff;
+      color: var(--text);
+    }
+
+    textarea { min-height: 96px; resize: vertical; }
+
+    button {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 0.65rem 0.95rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .btn-primary { background: var(--primary); color: white; border-color: var(--primary); }
+    .btn-danger { color: var(--danger); }
+    .btn-success { color: var(--success); }
+
+    .page {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 3rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      margin: 0 0 0.35rem;
+      font-size: 2rem;
+    }
+
+    .desc {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 1rem;
+    }
+
+    .item-list {
+      display: grid;
+      gap: 0.6rem;
+      max-height: 72vh;
+      overflow: auto;
+    }
+
+    .item-button {
+      width: 100%;
+      text-align: left;
+      border-radius: 12px;
+      padding: 0.8rem 0.95rem;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .item-button.active {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+
+    .item-label {
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+
+    .item-sub {
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .array-block {
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 0.8rem;
+      background: #fafcff;
+    }
+
+    .array-row {
+      display: flex;
+      gap: 0.55rem;
+      align-items: center;
+      margin-bottom: 0.55rem;
+    }
+
+    .array-row:last-child { margin-bottom: 0; }
+
+    .json-preview {
+      width: 100%;
+      min-height: 280px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      background: #0f172a;
+      color: #e2e8f0;
+      border: 0;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .status {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .image-editor {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 0.9rem;
+      background: #fafcff;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .image-preview-wrap {
+      width: 100%;
+      max-width: 240px;
+      aspect-ratio: 4 / 3;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #eef2f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-preview-wrap.people {
+      max-width: 180px;
+      aspect-ratio: 4 / 5;
+    }
+
+    .image-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #eef2f7;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-weight: 700;
+      text-align: center;
+      padding: 1rem;
+      background: linear-gradient(135deg, #eef2f7, #f8fafc);
+    }
+
+    .image-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      align-items: center;
+    }
+
+    .image-path {
+      font-size: 0.84rem;
+      color: var(--muted);
+      word-break: break-all;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .item-list { max-height: 320px; }
+    }
+
+    @media (max-width: 700px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+      <h1 class="title">AIM Lab Admin</h1>
+      <p class="desc">
+        Select the local site root folder (the folder containing <code>index.html</code>), edit JSON,
+        preview related images, and save both JSON and image files directly to disk.
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="toolbar">
+        <div class="tabs" id="dataset-tabs"></div>
+        <div class="tabs">
+          <button class="btn-primary" id="pick-root-btn" type="button">Choose site root folder</button>
+          <button id="reload-btn" type="button">Reload file</button>
+          <button id="add-item-btn" type="button">Add item</button>
+          <button class="btn-success" id="save-file-btn" type="button">Save JSON to disk</button>
+        </div>
+      </div>
+      <div class="status" id="status-text">Choose the local site root folder to begin.</div>
+    </section>
+
+    <div class="layout">
+      <section class="card">
+        <h2 style="margin-top:0;">Items</h2>
+        <div class="item-list" id="item-list"></div>
+      </section>
+
+      <section class="card">
+        <div class="toolbar">
+          <h2 style="margin:0;">Editor</h2>
+          <div class="tabs">
+            <button id="save-item-btn" type="button">Apply changes</button>
+            <button class="btn-danger" id="delete-item-btn" type="button">Delete item</button>
+          </div>
+        </div>
+
+        <div id="form-container"></div>
+
+        <h3>JSON Preview</h3>
+        <textarea id="json-preview" class="json-preview" readonly></textarea>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const DATASETS = {
+      publications: {
+        label: "Publications",
+        filename: "publications.json",
+        createEmpty: () => ({
+          title: "",
+          authors: [],
+          journal: "",
+          year: new Date().getFullYear(),
+          volume: "",
+          issue: "",
+          pages: "",
+          featured: false,
+          doi: "",
+          lab_member: [],
+          first_author: [],
+          corresponding_author: []
+        }),
+        getLabel: (item) => item.title || "(Untitled publication)",
+        getSubLabel: (item) => [item.journal, item.year].filter(Boolean).join(" · ")
+      },
+      people: {
+        label: "People",
+        filename: "people.json",
+        imageFolder: "photo",
+        createEmpty: () => ({
+          given_name: "",
+          family_name: "",
+          name_kr: "",
+          birth: "",
+          category: "current",
+          role: "",
+          degree: "",
+          program: "",
+          current_position: "",
+          email: "",
+          phone: "",
+          website: "",
+          scholar: "",
+          educational_background: [],
+          professional_experience: [],
+          awards: []
+        }),
+        getLabel: (item) => [item.given_name, item.family_name].filter(Boolean).join(" ") || "(Unnamed person)",
+        getSubLabel: (item) => [item.category, item.role].filter(Boolean).join(" · ")
+      },
+      research: {
+        label: "Research",
+        filename: "research.json",
+        imageFolder: "research_image",
+        createEmpty: () => ({
+          theme: "",
+          subtitle: "",
+          description: "",
+          keywords: [],
+          methods: [],
+          topics: []
+        }),
+        getLabel: (item) => item.theme || "(Untitled theme)",
+        getSubLabel: (item) => item.subtitle || ""
+      },
+      news: {
+        label: "News",
+        filename: "news.json",
+        imageFolder: "news_image",
+        createEmpty: () => ({
+          date: "",
+          title: "",
+          summary: "",
+          link: ""
+        }),
+        getLabel: (item) => item.title || "(Untitled news)",
+        getSubLabel: (item) => item.date || ""
+      }
+    };
+
+    let currentDatasetKey = "publications";
+    let datasetData = {
+      publications: [],
+      people: [],
+      research: [],
+      news: []
+    };
+    let selectedIndex = null;
+
+    let rootDirHandle = null;
+    let dataDirHandle = null;
+    let imageDirHandles = {};
+    let fileHandles = {};
+
+    const datasetTabsEl = document.getElementById("dataset-tabs");
+    const itemListEl = document.getElementById("item-list");
+    const formContainerEl = document.getElementById("form-container");
+    const jsonPreviewEl = document.getElementById("json-preview");
+    const statusTextEl = document.getElementById("status-text");
+
+    const pickRootBtn = document.getElementById("pick-root-btn");
+    const reloadBtn = document.getElementById("reload-btn");
+    const addItemBtn = document.getElementById("add-item-btn");
+    const saveFileBtn = document.getElementById("save-file-btn");
+    const saveItemBtn = document.getElementById("save-item-btn");
+    const deleteItemBtn = document.getElementById("delete-item-btn");
+
+    function setStatus(message) {
+      statusTextEl.textContent = message;
+    }
+
+    function getCurrentConfig() {
+      return DATASETS[currentDatasetKey];
+    }
+
+    function getCurrentData() {
+      return datasetData[currentDatasetKey];
+    }
+
+    function setCurrentData(next) {
+      datasetData[currentDatasetKey] = next;
+    }
+
+    function deepClone(obj) {
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function arrayify(value) {
+      return Array.isArray(value) ? value : [];
+    }
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    async function ensureReadWritePermission(handle) {
+      const options = { mode: "readwrite" };
+      if ((await handle.queryPermission(options)) === "granted") return true;
+      if ((await handle.requestPermission(options)) === "granted") return true;
+      return false;
+    }
+
+    async function chooseRootFolder() {
+      if (!window.showDirectoryPicker) {
+        setStatus("This browser does not support folder-based local file editing.");
+        return;
+      }
+
+      try {
+        const dirHandle = await window.showDirectoryPicker({ mode: "readwrite" });
+        const ok = await ensureReadWritePermission(dirHandle);
+        if (!ok) {
+          setStatus("Folder permission was not granted.");
+          return;
+        }
+
+        rootDirHandle = dirHandle;
+
+        dataDirHandle = await rootDirHandle.getDirectoryHandle("data", { create: false });
+        imageDirHandles = {
+          people: await rootDirHandle.getDirectoryHandle("photo", { create: true }),
+          research: await rootDirHandle.getDirectoryHandle("research_image", { create: true }),
+          news: await rootDirHandle.getDirectoryHandle("news_image", { create: true })
+        };
+
+        fileHandles = {};
+        for (const [key, config] of Object.entries(DATASETS)) {
+          fileHandles[key] = await dataDirHandle.getFileHandle(config.filename, { create: false });
+        }
+
+        await loadAllDatasetsFromDisk();
+        setStatus("Site root connected. JSON and image folders are now editable.");
+      } catch (error) {
+        console.error(error);
+        setStatus("Could not open the site root folder.");
+      }
+    }
+
+    async function readJsonFile(fileHandle) {
+      const file = await fileHandle.getFile();
+      const text = await file.text();
+      return JSON.parse(text);
+    }
+
+    async function writeJsonFile(fileHandle, data) {
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+    }
+
+    async function loadAllDatasetsFromDisk() {
+      for (const key of Object.keys(DATASETS)) {
+        const json = await readJsonFile(fileHandles[key]);
+        datasetData[key] = Array.isArray(json) ? json : [];
+      }
+      selectedIndex = datasetData[currentDatasetKey].length ? 0 : null;
+      renderAll();
+    }
+
+    async function reloadCurrentDataset() {
+      if (!fileHandles[currentDatasetKey]) {
+        setStatus("Choose the site root folder first.");
+        return;
+      }
+
+      try {
+        datasetData[currentDatasetKey] = await readJsonFile(fileHandles[currentDatasetKey]);
+        selectedIndex = datasetData[currentDatasetKey].length ? 0 : null;
+        renderAll();
+        setStatus(`${getCurrentConfig().filename} reloaded from disk.`);
+      } catch (error) {
+        console.error(error);
+        setStatus(`Failed to reload ${getCurrentConfig().filename}.`);
+      }
+    }
+
+    async function saveCurrentDatasetToDisk() {
+      if (!fileHandles[currentDatasetKey]) {
+        setStatus("Choose the site root folder first.");
+        return;
+      }
+
+      try {
+        await writeJsonFile(fileHandles[currentDatasetKey], getCurrentData());
+        setStatus(`${getCurrentConfig().filename} saved to local disk.`);
+      } catch (error) {
+        console.error(error);
+        setStatus(`Failed to save ${getCurrentConfig().filename}.`);
+      }
+    }
+
+    function renderTabs() {
+      datasetTabsEl.innerHTML = Object.entries(DATASETS).map(([key, config]) => `
+        <button
+          type="button"
+          class="tab-btn ${key === currentDatasetKey ? "active" : ""}"
+          data-dataset="${key}"
+        >
+          ${config.label}
+        </button>
+      `).join("");
+
+      datasetTabsEl.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          currentDatasetKey = btn.dataset.dataset;
+          selectedIndex = getCurrentData().length ? 0 : null;
+          renderAll();
+          setStatus(`Switched to ${DATASETS[currentDatasetKey].label}.`);
+        });
+      });
+    }
+
+    function renderItemList() {
+      const config = getCurrentConfig();
+      const data = getCurrentData();
+
+      if (!data.length) {
+        itemListEl.innerHTML = `<div class="item-sub">No items yet.</div>`;
+        return;
+      }
+
+      itemListEl.innerHTML = data.map((item, index) => `
+        <button type="button" class="item-button ${index === selectedIndex ? "active" : ""}" data-index="${index}">
+          <div class="item-label">${escapeHtml(config.getLabel(item))}</div>
+          <div class="item-sub">${escapeHtml(config.getSubLabel(item))}</div>
+        </button>
+      `).join("");
+
+      itemListEl.querySelectorAll(".item-button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          selectedIndex = Number(btn.dataset.index);
+          renderAll();
+        });
+      });
+    }
+
+    function renderArrayEditor(label, key, values) {
+      const safeValues = arrayify(values);
+      return `
+        <div class="field full">
+          <label>${escapeHtml(label)}</label>
+          <div class="array-block">
+            ${safeValues.map((value, index) => `
+              <div class="array-row">
+                <input type="text" data-array-input="${escapeHtml(key)}" data-array-index="${index}" value="${escapeHtml(value)}" />
+                <button type="button" class="btn-danger" data-remove-array-item="${escapeHtml(key)}" data-array-index="${index}">Remove</button>
+              </div>
+            `).join("")}
+            <button type="button" data-add-array-item="${escapeHtml(key)}">Add item</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function getPeopleImageBase(item) {
+      return `${item.given_name || ""}_${item.family_name || ""}_${item.birth || ""}`;
+    }
+
+    function getResearchImageBase(item) {
+      return `${item.theme || ""}`;
+    }
+
+    function getNewsImageBase(item) {
+      return `${item.title || ""}`;
+    }
+
+    function getImageInfo(item, datasetKey) {
+      if (datasetKey === "people") {
+        const base = getPeopleImageBase(item);
+        return {
+          folder: "photo",
+          className: "people",
+          baseName: base,
+          candidates: [`photo/${base}.jpg`, `photo/${base}.png`]
+        };
+      }
+
+      if (datasetKey === "research") {
+        const base = getResearchImageBase(item);
+        return {
+          folder: "research_image",
+          className: "",
+          baseName: base,
+          candidates: [`research_image/${base}.jpg`, `research_image/${base}.png`, `research_image/${base}.gif`]
+        };
+      }
+
+      if (datasetKey === "news") {
+        const base = getNewsImageBase(item);
+        return {
+          folder: "news_image",
+          className: "",
+          baseName: base,
+          candidates: [`news_image/${base}.jpg`, `news_image/${base}.png`]
+        };
+      }
+
+      return null;
+    }
+
+    function renderImageEditor(item, datasetKey) {
+      const info = getImageInfo(item, datasetKey);
+      if (!info || !info.baseName.trim()) {
+        return `
+          <div class="field full">
+            <label>Image</label>
+            <div class="image-editor">
+              <div class="hint">Fill in the required naming field first so the image file name can be generated automatically.</div>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="field full">
+          <label>Image</label>
+          <div class="image-editor">
+            <div class="image-preview-wrap ${info.className}" id="image-preview-wrap">
+              <img class="image-preview" id="image-preview" alt="Preview" style="display:none;" />
+              <div class="image-placeholder" id="image-placeholder">No image found</div>
+            </div>
+
+            <div class="image-actions">
+              <input type="file" id="image-upload-input" accept=".jpg,.jpeg,.png,.gif,image/jpeg,image/png,image/gif" />
+              <button type="button" id="upload-image-btn">Upload / Replace Image</button>
+              <button type="button" id="refresh-image-btn">Refresh Preview</button>
+            </div>
+
+            <div class="image-path" id="image-path">
+              Expected file names: ${info.candidates.map(escapeHtml).join(" / ")}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderForm() {
+      const data = getCurrentData();
+      if (selectedIndex === null || !data[selectedIndex]) {
+        formContainerEl.innerHTML = `<div class="item-sub">Select an item or add a new one.</div>`;
+        return;
+      }
+
+      const item = data[selectedIndex];
+      let html = "";
+
+      if (currentDatasetKey === "publications") {
+        html = `
+          <div class="form-grid">
+            <div class="field full">
+              <label>Title</label>
+              <input data-field="title" type="text" value="${escapeHtml(item.title || "")}" />
+            </div>
+            ${renderArrayEditor("Authors", "authors", item.authors)}
+            ${renderArrayEditor("Lab Members", "lab_member", item.lab_member)}
+            ${renderArrayEditor("First Authors", "first_author", item.first_author)}
+            ${renderArrayEditor("Corresponding Authors", "corresponding_author", item.corresponding_author)}
+            <div class="field"><label>Journal</label><input data-field="journal" type="text" value="${escapeHtml(item.journal || "")}" /></div>
+            <div class="field"><label>Year</label><input data-field="year" type="number" value="${escapeHtml(item.year || "")}" /></div>
+            <div class="field"><label>Volume</label><input data-field="volume" type="text" value="${escapeHtml(item.volume || "")}" /></div>
+            <div class="field"><label>Issue</label><input data-field="issue" type="text" value="${escapeHtml(item.issue || "")}" /></div>
+            <div class="field"><label>Pages</label><input data-field="pages" type="text" value="${escapeHtml(item.pages || "")}" /></div>
+            <div class="field"><label>DOI URL</label><input data-field="doi" type="text" value="${escapeHtml(item.doi || "")}" /></div>
+            <div class="field">
+              <label>Featured</label>
+              <select data-field="featured">
+                <option value="true" ${item.featured ? "selected" : ""}>true</option>
+                <option value="false" ${!item.featured ? "selected" : ""}>false</option>
+              </select>
+            </div>
+          </div>
+        `;
+      }
+
+      if (currentDatasetKey === "people") {
+        html = `
+          <div class="form-grid">
+            <div class="field"><label>Given Name</label><input data-field="given_name" type="text" value="${escapeHtml(item.given_name || "")}" /></div>
+            <div class="field"><label>Family Name</label><input data-field="family_name" type="text" value="${escapeHtml(item.family_name || "")}" /></div>
+            <div class="field"><label>Korean Name</label><input data-field="name_kr" type="text" value="${escapeHtml(item.name_kr || "")}" /></div>
+            <div class="field"><label>Birth (YYYYMMDD)</label><input data-field="birth" type="text" value="${escapeHtml(item.birth || "")}" /></div>
+            <div class="field">
+              <label>Category</label>
+              <select data-field="category">
+                <option value="pi" ${item.category === "pi" ? "selected" : ""}>pi</option>
+                <option value="current" ${item.category === "current" ? "selected" : ""}>current</option>
+                <option value="alumni" ${item.category === "alumni" ? "selected" : ""}>alumni</option>
+              </select>
+            </div>
+            <div class="field"><label>Role</label><input data-field="role" type="text" value="${escapeHtml(item.role || "")}" /></div>
+            <div class="field"><label>Degree</label><input data-field="degree" type="text" value="${escapeHtml(item.degree || "")}" /></div>
+            <div class="field"><label>Program</label><input data-field="program" type="text" value="${escapeHtml(item.program || "")}" /></div>
+            <div class="field full"><label>Current Position</label><input data-field="current_position" type="text" value="${escapeHtml(item.current_position || "")}" /></div>
+            <div class="field"><label>Email</label><input data-field="email" type="text" value="${escapeHtml(item.email || "")}" /></div>
+            <div class="field"><label>Phone</label><input data-field="phone" type="text" value="${escapeHtml(item.phone || "")}" /></div>
+            <div class="field"><label>Website</label><input data-field="website" type="text" value="${escapeHtml(item.website || "")}" /></div>
+            <div class="field"><label>Scholar</label><input data-field="scholar" type="text" value="${escapeHtml(item.scholar || "")}" /></div>
+            ${renderArrayEditor("Educational Background", "educational_background", item.educational_background)}
+            ${renderArrayEditor("Professional Experience", "professional_experience", item.professional_experience)}
+            ${renderArrayEditor("Awards", "awards", item.awards)}
+            ${renderImageEditor(item, "people")}
+          </div>
+        `;
+      }
+
+      if (currentDatasetKey === "research") {
+        html = `
+          <div class="form-grid">
+            <div class="field full">
+              <label>Theme</label>
+              <input data-field="theme" type="text" value="${escapeHtml(item.theme || "")}" />
+              <div class="hint">Image file name will follow: research_image/{theme}.jpg/png/gif</div>
+            </div>
+            <div class="field full">
+              <label>Subtitle</label>
+              <input data-field="subtitle" type="text" value="${escapeHtml(item.subtitle || "")}" />
+            </div>
+            <div class="field full">
+              <label>Description</label>
+              <textarea data-field="description">${escapeHtml(item.description || "")}</textarea>
+            </div>
+            ${renderArrayEditor("Keywords", "keywords", item.keywords)}
+            ${renderArrayEditor("Methods", "methods", item.methods)}
+            ${renderArrayEditor("Topics", "topics", item.topics)}
+            ${renderImageEditor(item, "research")}
+          </div>
+        `;
+      }
+
+      if (currentDatasetKey === "news") {
+        html = `
+          <div class="form-grid">
+            <div class="field">
+              <label>Date</label>
+              <input data-field="date" type="text" value="${escapeHtml(item.date || "")}" />
+              <div class="hint">YYYY-MM-DD</div>
+            </div>
+            <div class="field full">
+              <label>Title</label>
+              <input data-field="title" type="text" value="${escapeHtml(item.title || "")}" />
+              <div class="hint">Image file name will follow: news_image/{title}.jpg/png</div>
+            </div>
+            <div class="field full">
+              <label>Summary</label>
+              <textarea data-field="summary">${escapeHtml(item.summary || "")}</textarea>
+            </div>
+            <div class="field full">
+              <label>External Link</label>
+              <input data-field="link" type="text" value="${escapeHtml(item.link || "")}" />
+            </div>
+            ${renderImageEditor(item, "news")}
+          </div>
+        `;
+      }
+
+      formContainerEl.innerHTML = html;
+      bindArrayButtons();
+      bindImageEditor();
+      refreshImagePreview();
+    }
+
+    function bindArrayButtons() {
+      formContainerEl.querySelectorAll("[data-add-array-item]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.addArrayItem;
+          const data = deepClone(getCurrentData());
+          const item = data[selectedIndex];
+          item[key] = arrayify(item[key]);
+          item[key].push("");
+          setCurrentData(data);
+          renderAll();
+        });
+      });
+
+      formContainerEl.querySelectorAll("[data-remove-array-item]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.removeArrayItem;
+          const idx = Number(btn.dataset.arrayIndex);
+          const data = deepClone(getCurrentData());
+          const item = data[selectedIndex];
+          item[key] = arrayify(item[key]).filter((_, i) => i !== idx);
+          setCurrentData(data);
+          renderAll();
+        });
+      });
+    }
+
+    function bindImageEditor() {
+      const uploadBtn = document.getElementById("upload-image-btn");
+      const refreshBtn = document.getElementById("refresh-image-btn");
+      if (uploadBtn) {
+        uploadBtn.addEventListener("click", uploadCurrentImage);
+      }
+      if (refreshBtn) {
+        refreshBtn.addEventListener("click", refreshImagePreview);
+      }
+    }
+
+    function collectFormValues() {
+      const currentItem = deepClone(getCurrentData()[selectedIndex] || {});
+
+      formContainerEl.querySelectorAll("[data-field]").forEach((input) => {
+        const key = input.dataset.field;
+        let value = input.value;
+
+        if (key === "featured") {
+          currentItem[key] = value === "true";
+          return;
+        }
+
+        if (key === "year") {
+          currentItem[key] = value ? Number(value) : "";
+          return;
+        }
+
+        currentItem[key] = value;
+      });
+
+      const grouped = {};
+      formContainerEl.querySelectorAll("[data-array-input]").forEach((input) => {
+        const key = input.dataset.arrayInput;
+        if (!grouped[key]) grouped[key] = [];
+        grouped[key].push(input.value);
+      });
+
+      Object.keys(grouped).forEach((key) => {
+        currentItem[key] = grouped[key].map(v => v.trim()).filter(Boolean);
+      });
+
+      return currentItem;
+    }
+
+    function saveCurrentItemInMemory() {
+      const data = deepClone(getCurrentData());
+      if (selectedIndex === null || !data[selectedIndex]) return;
+      data[selectedIndex] = collectFormValues();
+      setCurrentData(data);
+      renderAll();
+      setStatus("Changes applied in editor. Click 'Save JSON to disk' to write JSON.");
+    }
+
+    function deleteCurrentItem() {
+      const data = deepClone(getCurrentData());
+      if (selectedIndex === null || !data[selectedIndex]) return;
+
+      if (!window.confirm("Delete this item?")) return;
+
+      data.splice(selectedIndex, 1);
+      setCurrentData(data);
+      selectedIndex = data.length ? Math.max(0, selectedIndex - 1) : null;
+      renderAll();
+      setStatus("Item deleted in editor. Save JSON to write the change to disk.");
+    }
+
+    function addNewItem() {
+      const config = getCurrentConfig();
+      const data = deepClone(getCurrentData());
+      data.push(config.createEmpty());
+      setCurrentData(data);
+      selectedIndex = data.length - 1;
+      renderAll();
+      setStatus("New item added.");
+    }
+
+    async function fileExists(dirHandle, fileName) {
+      try {
+        await dirHandle.getFileHandle(fileName, { create: false });
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    async function findExistingImagePath(info) {
+      const dirHandle = imageDirHandles[currentDatasetKey];
+      if (!dirHandle || !info) return null;
+
+      for (const candidate of info.candidates) {
+        const fileName = candidate.split("/").pop();
+        if (await fileExists(dirHandle, fileName)) {
+          return candidate;
+        }
+      }
+      return null;
+    }
+
+    async function refreshImagePreview() {
+      if (!["people", "research", "news"].includes(currentDatasetKey)) return;
+      if (selectedIndex === null) return;
+
+      const item = collectFormValues();
+      const info = getImageInfo(item, currentDatasetKey);
+      const preview = document.getElementById("image-preview");
+      const placeholder = document.getElementById("image-placeholder");
+      const pathEl = document.getElementById("image-path");
+
+      if (!preview || !placeholder || !pathEl) return;
+
+      if (!info || !info.baseName.trim()) {
+        preview.style.display = "none";
+        placeholder.style.display = "flex";
+        placeholder.textContent = "No image name available yet";
+        pathEl.textContent = "Fill in the naming field first.";
+        return;
+      }
+
+      pathEl.textContent = `Expected file names: ${info.candidates.join(" / ")}`;
+
+      const existingPath = await findExistingImagePath(info);
+      if (existingPath) {
+        preview.src = existingPath + `?t=${Date.now()}`;
+        preview.style.display = "block";
+        placeholder.style.display = "none";
+      } else {
+        preview.style.display = "none";
+        placeholder.style.display = "flex";
+        placeholder.textContent = "No image found";
+      }
+    }
+
+    function getExtensionFromFileName(fileName) {
+      const lower = fileName.toLowerCase();
+      if (lower.endsWith(".jpeg")) return "jpg";
+      if (lower.endsWith(".jpg")) return "jpg";
+      if (lower.endsWith(".png")) return "png";
+      if (lower.endsWith(".gif")) return "gif";
+      return "";
+    }
+
+    async function uploadCurrentImage() {
+      if (!rootDirHandle) {
+        setStatus("Choose the site root folder first.");
+        return;
+      }
+
+      if (!["people", "research", "news"].includes(currentDatasetKey)) {
+        setStatus("This dataset does not use image upload.");
+        return;
+      }
+
+      const input = document.getElementById("image-upload-input");
+      if (!input || !input.files || !input.files[0]) {
+        setStatus("Choose an image file first.");
+        return;
+      }
+
+      try {
+        const item = collectFormValues();
+        const info = getImageInfo(item, currentDatasetKey);
+
+        if (!info || !info.baseName.trim()) {
+          setStatus("Fill in the naming field first so the image file name can be generated.");
+          return;
+        }
+
+        const sourceFile = input.files[0];
+        const ext = getExtensionFromFileName(sourceFile.name);
+        if (!ext) {
+          setStatus("Unsupported image type. Use jpg, png, or gif.");
+          return;
+        }
+
+        if (currentDatasetKey === "news" && ext === "gif") {
+          setStatus("News images currently support jpg or png only.");
+          return;
+        }
+
+        if (currentDatasetKey === "people" && ext === "gif") {
+          setStatus("People images currently support jpg or png only.");
+          return;
+        }
+
+        const dirHandle = imageDirHandles[currentDatasetKey];
+        const targetName = `${info.baseName}.${ext}`;
+        const fileHandle = await dirHandle.getFileHandle(targetName, { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(await sourceFile.arrayBuffer());
+        await writable.close();
+
+        await refreshImagePreview();
+        setStatus(`Image uploaded to ${info.folder}/${targetName}`);
+      } catch (error) {
+        console.error(error);
+        setStatus("Failed to upload image.");
+      }
+    }
+
+    function updatePreview() {
+      jsonPreviewEl.value = JSON.stringify(getCurrentData(), null, 2);
+    }
+
+    function renderAll() {
+      renderTabs();
+      renderItemList();
+      renderForm();
+      updatePreview();
+    }
+
+    pickRootBtn.addEventListener("click", chooseRootFolder);
+    reloadBtn.addEventListener("click", reloadCurrentDataset);
+    addItemBtn.addEventListener("click", addNewItem);
+    saveFileBtn.addEventListener("click", saveCurrentDatasetToDisk);
+    saveItemBtn.addEventListener("click", saveCurrentItemInMemory);
+    deleteItemBtn.addEventListener("click", deleteCurrentItem);
+
+    document.addEventListener("input", (event) => {
+      if (!formContainerEl.contains(event.target)) return;
+      try {
+        const previewData = deepClone(getCurrentData());
+        if (selectedIndex !== null && previewData[selectedIndex]) {
+          previewData[selectedIndex] = collectFormValues();
+          jsonPreviewEl.value = JSON.stringify(previewData, null, 2);
+        }
+      } catch {
+        // ignore temporary invalid state
+      }
+    });
+
+    document.addEventListener("change", (event) => {
+      if (formContainerEl.contains(event.target) && ["people", "research", "news"].includes(currentDatasetKey)) {
+        refreshImagePreview();
+      }
+    });
+
+    renderAll();
+  </script>
+</body>
+</html>

@@ -3,6 +3,25 @@
     "date": "2026-03-01",
     "title": "Prof. Jaemin Wang joined Kyungpook National University",
     "summary": "Jaemin Wang joined the Department of Materials Science and Metallurgical Engineering at Kyungpook National University as an Assistant Professor.",
-    "link": ""
+    "link": "",
+    "images": []
+  },
+  {
+    "date": "2026-04-30",
+    "title": "Our work was published in Advanced Science",
+    "summary": "Our paper, \"Data-Driven Modeling of Composition-Processing-Microstructure Relations for Recycled Aluminum Cast Alloys,\" was published in Advanced Science.\"",
+    "link": "https://doi.org/10.1002/advs.75446",
+    "images": []
+  },
+  {
+    "date": "2026-08-21",
+    "title": "2026 Materials Artificial Intelligence Summer School",
+    "summary": "The 2026 Materials Artificial Intelligence Summer School was successfully held from August 19 to 21, 2026, at Kyungpook National University (KNU).",
+    "link": "https://sites.google.com/view/aikim/events#h.np1c53228ujf",
+    "images": [
+      "news_image/KakaoTalk_20260821_130611998_01.jpg",
+      "news_image/KakaoTalk_20260821_104630048_07.jpg",
+      "news_image/KakaoTalk_20260821_104630048_02.jpg"
+    ]
   }
 ]

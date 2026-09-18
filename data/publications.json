@@ -916,5 +916,30 @@
     "corresponding_author": [
       "Ibrahim Ondicho"
     ]
+  },
+  {
+    "title": "Machine learning-accelerated calculation of diffusion coefficients in crystalline structures from molecular dynamics",
+    "authors": [
+      "Sang-Ho Oh",
+      "Jaemin Wang",
+      "Byeong-Joo Lee"
+    ],
+    "journal": "Computational Materials Science",
+    "year": 2026,
+    "volume": "275",
+    "issue": "",
+    "pages": "115079",
+    "featured": false,
+    "doi": "https://doi.org/10.1016/j.commatsci.2026.115079",
+    "lab_member": [
+      "Jaemin Wang"
+    ],
+    "first_author": [
+      "Sang-Ho Oh",
+      "Jaemin Wang"
+    ],
+    "corresponding_author": [
+      "Byeong-Joo Lee"
+    ]
   }
 ]

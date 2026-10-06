@@ -23,5 +23,14 @@
       "news_image/KakaoTalk_20260821_104630048_07.jpg",
       "news_image/KakaoTalk_20260821_104630048_02.jpg"
     ]
+  },
+  {
+    "date": "2026-10-01",
+    "title": "Prof. Jaemin Wang selected as KIM Young Researcher",
+    "summary": "Prof. Jaemin Wang was selected as the October 2026 “KIM Young Researcher in Materials Innovation” by The Korean Institute of Metals and Materials (KIM).",
+    "link": "https://www.kim.or.kr/board/?_0000_method=view&ncode=a001&category_cd=&num=9552&page=1",
+    "images": [
+      "news_image/KakaoTalk_20261007_084332900.jpg"
+    ]
   }
 ]

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import shutil
+import subprocess
 import sys
 from copy import deepcopy
 from pathlib import Path
@@ -37,6 +38,29 @@ from PySide6.QtWidgets import (
 )
 
 APP_TITLE = "AIM Lab Admin"
+
+
+def rebuild_static_html(root_dir: Path) -> None:
+    """Use the site's existing renderer, including both home-page previews."""
+    node = shutil.which("node")
+    if not node:
+        raise RuntimeError("Node.js를 찾을 수 없습니다. Node.js 24 이상을 설치한 뒤 관리자 프로그램을 다시 실행해주세요.")
+    script = root_dir / "scripts" / "prerender.mjs"
+    if not script.is_file():
+        raise RuntimeError(f"HTML 생성 스크립트를 찾을 수 없습니다: {script}")
+    result = subprocess.run(
+        [node, str(script)],
+        cwd=root_dir,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=30,
+        creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0,
+    )
+    if result.returncode:
+        detail = (result.stderr or result.stdout).strip()
+        raise RuntimeError(detail or f"HTML 생성기가 종료 코드 {result.returncode}로 실패했습니다.")
 
 
 class ArrayEditDialog(QDialog):
@@ -582,7 +606,7 @@ class AimLabAdmin(QMainWindow):
     def _build_ui(self) -> None:
         self.statusBar().showMessage("Ready")
 
-        save_action = QAction("Save JSON", self)
+        save_action = QAction("Save JSON + HTML", self)
         save_action.triggered.connect(self.save_current_dataset)
         self.menuBar().addAction(save_action)
 
@@ -616,7 +640,7 @@ class AimLabAdmin(QMainWindow):
         self.move_down_btn = QPushButton("Move down")
         self.apply_btn = QPushButton("Apply changes")
         self.delete_btn = QPushButton("Delete item")
-        self.save_btn = QPushButton("Save JSON to disk")
+        self.save_btn = QPushButton("Save JSON + HTML to disk")
 
         self.reload_btn.clicked.connect(self.reload_current_dataset)
         self.add_btn.clicked.connect(self.add_item)
@@ -1205,7 +1229,7 @@ class AimLabAdmin(QMainWindow):
         self.current_data()[self.selected_index] = self.collect_form_values()
         self.dirty = True
         self._render_all()
-        self.statusBar().showMessage("변경사항이 메모리에 반영되었습니다. Save JSON to disk를 누르면 파일에 저장됩니다.")
+        self.statusBar().showMessage("변경사항이 메모리에 반영되었습니다. Save JSON + HTML to disk를 누르면 JSON과 HTML이 저장됩니다.")
 
     def add_item(self) -> None:
         self.current_data().append(self.current_config().create_empty())
@@ -1293,11 +1317,28 @@ class AimLabAdmin(QMainWindow):
             if path.exists():
                 shutil.copy2(path, backup)
             path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-            self.dirty = False
-            self._render_all()
-            self.statusBar().showMessage(f"저장 완료: {path.name} (backup: {backup.name})")
         except Exception as exc:
             self._warn(f"저장 실패: {exc}")
+            return
+
+        try:
+            self.statusBar().showMessage(f"{path.name} 저장 완료. 영문·국문 HTML을 갱신하고 있습니다...")
+            rebuild_static_html(self.root_dir)
+        except Exception as exc:
+            # JSON is already on disk. Keep a retry pending and report partial success accurately.
+            self.dirty = True
+            self._render_all()
+            self.statusBar().showMessage(f"{path.name} 저장 완료 / HTML 갱신 실패 — 다시 저장해주세요.")
+            self._warn(
+                f"{path.name}은 저장되었지만 HTML 갱신에 실패했습니다.\n"
+                "HTML 일부가 갱신되지 않았을 수 있습니다. 원인을 해결한 뒤 저장 버튼을 다시 눌러주세요.\n\n"
+                f"{exc}"
+            )
+            return
+
+        self.dirty = False
+        self._render_all()
+        self.statusBar().showMessage(f"저장 완료: {path.name} + 영문·국문 HTML (backup: {backup.name})")
 
     def sanitize_filename(self, raw: str) -> str:
         cleaned = "".join("_" if c in '<>:"/\\|?*' else c for c in raw.strip())

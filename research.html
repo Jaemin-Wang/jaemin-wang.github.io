@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research | AIM Lab</title>
+  <meta name="description" content="Research at AIM Lab, Kyungpook National University: materials AI, physics-based machine learning, atomistic simulation, and computational materials science." />
   <link
     rel="alternate"
     type="application/json"
@@ -361,7 +362,7 @@
   <header class="site-header">
     <div class="site-header-inner">
       <div class="logo-wrap">
-        <a href="index.html" class="logo-link" aria-label="Go to home">
+        <a href="./" class="logo-link" aria-label="Go to home">
           <div class="logo-img-wrap">
             <img src="lab logo_web.png" alt="AIM Lab logo" onerror="handleLogoError(this)" />
             <div class="logo-placeholder">AIM</div>
@@ -375,7 +376,7 @@
       </div>
 
       <nav class="nav" aria-label="Main navigation">
-        <a href="index.html">Home</a>
+        <a href="./">Home</a>
         <a href="research.html" class="active">Research</a>
         <a href="publications.html">Publications</a>
         <a href="people.html">People</a>
@@ -403,11 +404,97 @@
       </p>
     </section>
 
-    <div class="summary" id="research-summary">Loading research themes...</div>
+    <div class="summary" id="research-summary" data-prerendered="true">2 research themes</div>
 
-    <section id="research-grid" class="research-grid">
-      <div class="loading-state">Loading research themes...</div>
-    </section>
+    <section id="research-grid" class="research-grid" data-prerendered="true">
+            <article class="research-card">
+            <div class="research-media">
+                <img
+                class="research-image"
+                src="research_image/AI for Materials Science.jpg"
+                alt="AI for Materials Science representative image"
+                data-candidates='[&quot;research_image/AI for Materials Science.jpg&quot;,&quot;research_image/AI for Materials Science.png&quot;,&quot;research_image/AI for Materials Science.gif&quot;]'
+                data-index="0"
+                onerror="handleResearchImageError(this)"
+                />
+                <div class="research-placeholder">AI for Materials Science</div>
+            </div>
+
+            <div class="research-content">
+                <div>
+                <h2 class="research-title">AI for Materials Science</h2>
+                <p class="research-subtitle">Physics-based machine learning and explainable AI for materials design</p>
+                </div>
+
+                <p class="research-description">We develop interpretable and physics-based machine learning frameworks for alloy design, process optimization, and structure-property prediction. Our work emphasizes scientific interpretability, physically meaningful descriptors, and reliable inverse design strategies for accelerating materials discovery.</p>
+
+
+                <div>
+                    <p class="research-section-label">Keywords</p>
+                    <div class="keyword-row"><span class="chip">Materials AI</span><span class="chip">Physics-based Machine Learning</span><span class="chip">Explainable AI</span><span class="chip">Inverse Design</span><span class="chip">Alloy Design</span></div>
+                </div>
+
+
+
+                <div>
+                    <p class="research-section-label">Methods</p>
+                    <div class="method-row"><span class="chip">Graph Neural Networks</span><span class="chip">XGBoost</span><span class="chip">SHAP</span><span class="chip">Neural Networks</span><span class="chip">Interpretable Modeling</span></div>
+                </div>
+
+
+
+                <div>
+                    <p class="research-section-label">Representative Topics</p>
+                    <div class="topic-row"><span class="chip">High-Entropy Alloy Design</span><span class="chip">Hydrogen Storage Alloy Discovery</span><span class="chip">Additive Manufacturing Optimization</span><span class="chip">Solidification Prediction</span><span class="chip">Microstructure-aware Design</span></div>
+                </div>
+
+            </div>
+            </article>
+
+            <article class="research-card">
+            <div class="research-media">
+                <img
+                class="research-image"
+                src="research_image/Computational Materials Science.jpg"
+                alt="Computational Materials Science representative image"
+                data-candidates='[&quot;research_image/Computational Materials Science.jpg&quot;,&quot;research_image/Computational Materials Science.png&quot;,&quot;research_image/Computational Materials Science.gif&quot;]'
+                data-index="0"
+                onerror="handleResearchImageError(this)"
+                />
+                <div class="research-placeholder">Computational Materials Science</div>
+            </div>
+
+            <div class="research-content">
+                <div>
+                <h2 class="research-title">Computational Materials Science</h2>
+                <p class="research-subtitle">Thermodynamics, atomistic simulation, and multiscale computational modeling</p>
+                </div>
+
+                <p class="research-description">We use computational materials science tools to understand alloy thermodynamics, phase stability, atomistic behavior, and microstructure evolution. Our research integrates CALPHAD, molecular dynamics, interatomic potentials, machine-learning potentials, and density functional theory to build predictive and physically grounded frameworks for advanced materials design.</p>
+
+
+                <div>
+                    <p class="research-section-label">Keywords</p>
+                    <div class="keyword-row"><span class="chip">Computational Materials Science</span><span class="chip">Thermodynamics</span><span class="chip">Atomistic Simulation</span><span class="chip">Multiscale Modeling</span><span class="chip">Phase Stability</span></div>
+                </div>
+
+
+
+                <div>
+                    <p class="research-section-label">Methods</p>
+                    <div class="method-row"><span class="chip">CALPHAD</span><span class="chip">Molecular Dynamics</span><span class="chip">2NN MEAM</span><span class="chip">Machine Learning Potential</span><span class="chip">DFT</span></div>
+                </div>
+
+
+
+                <div>
+                    <p class="research-section-label">Representative Topics</p>
+                    <div class="topic-row"><span class="chip">Phase Diagram and Thermodynamic Modeling</span><span class="chip">Interatomic Potential Development</span><span class="chip">Microstructure Evolution</span><span class="chip">Diffusion and Precipitation</span><span class="chip">Composition-Structure-Property Relations</span></div>
+                </div>
+
+            </div>
+            </article>
+        </section>
   </main>
 
 <footer class="container">
@@ -556,6 +643,8 @@
         summaryEl.textContent = `${researchItems.length} research themes`;
       } catch (error) {
         console.error(error);
+        // Keep the pre-rendered content available if the live data request fails.
+        if (researchGridEl.dataset.prerendered === "true") { return; }
         researchGridEl.innerHTML = `
           <div class="error-state">
             Failed to load research themes. Make sure <code>data/research.json</code> exists

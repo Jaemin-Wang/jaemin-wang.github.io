@@ -1,0 +1,44 @@
+.site-footer {
+  padding: 1rem 0 2.5rem;
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.65;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.site-footer a {
+  color: var(--primary);
+  font-weight: 300;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  text-decoration: underline;
+}
+
+.footer-heading {
+  margin-bottom: 0.8rem;
+}
+
+.footer-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem 1.5rem;
+}
+
+.footer-email,
+.footer-profiles {
+  margin-top: 0.6rem;
+}
+
+.footer-copyright {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 700px) {
+  .footer-details {
+    grid-template-columns: 1fr;
+  }
+}

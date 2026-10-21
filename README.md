@@ -29,6 +29,14 @@ JavaScript가 꺼져 있을 때는 구성원·논문의 모든 탭을 펼쳐 보
 GitHub Actions의 `Check static site`는 JSON과 HTML이 불일치하면 실패합니다.
 이 검사는 기존 Pages 배포를 변경하거나 자동으로 차단하지 않으므로 푸시 전에도 실행하세요.
 
+## 공통 푸터
+
+영문·국문 페이지 10개는 `partials/footer.html`의 같은 한영 병기 푸터와
+`styles/footer.css`의 공통 스타일을 사용합니다. 푸터 내용은 공통 원본에서 수정한 뒤
+`node scripts/prerender.mjs`를 실행하고 갱신된 HTML을 함께 커밋하세요.
+푸터는 HTML에 포함되므로 JavaScript 없이도 표시됩니다.
+페이지별 JSON 다운로드 링크는 각 본문 하단에 유지됩니다.
+
 ## 검색 노출 확인
 
 - 사이트맵: https://aimlab.knu.ac.kr/sitemap.xml — 실제 웹페이지 10개만 포함합니다.

@@ -82,6 +82,10 @@ export async function renderPage(page, { failFetch = false } = {}) {
       ? element.opening : element.opening.replace(/>$/, ' data-prerendered="true">');
     output = output.slice(0, element.openingStart) + opening + element.content + output.slice(element.end);
   }
+  // Embed the shared bilingual footer so it also works without JavaScript.
+  const footer = (await readFile(path.join(root, 'partials/footer.html'), 'utf8')).trim();
+  if (!/<footer\b[\s\S]*?<\/footer>/.test(output)) throw new Error(`Missing footer: ${page}`);
+  output = output.replace(/<footer\b[\s\S]*?<\/footer>/, () => footer);
   return output.replace(/[ \t]+$/gm, '');
 }
 

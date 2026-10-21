@@ -37,15 +37,6 @@
       box-sizing: border-box;
     }
 
-    footer a {
-      color: var(--primary);
-      font-weight: 300;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
     html {
       scroll-behavior: smooth;
     }
@@ -424,12 +415,6 @@
       color: #b91c1c;
     }
 
-    footer {
-      padding: 1rem 0 2.5rem;
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
     @media (max-width: 900px) {
       .site-header-inner {
         align-items: flex-start;
@@ -463,6 +448,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="styles/footer.css">
 </head>
 <body>
   <header class="site-header">
@@ -635,27 +621,39 @@
     </section>
   </main>
 
-<footer class="container">
-  <div style="margin-bottom: 0.8rem;">
-    <strong>AIM Lab</strong> · Alloy Informatics and Modeling Laboratory
+<footer class="container site-footer">
+  <div class="footer-heading">
+    <strong><span lang="ko">전산재료 연구실</span> · <span lang="en">AIM Lab</span></strong>
+    <div lang="en">Alloy Informatics and Modeling Laboratory</div>
   </div>
 
-  <div>
-    <strong>Principal Investigator:</strong> Prof. Jaemin Wang<br>
-    Department of Materials Science and Metallurgical Engineering<br>
-    Kyungpook National University<br>
-    80 Daehakro, Bukgu, Daegu 41566, Republic of Korea<br>
-    Email: <a href="mailto:jmwang@knu.ac.kr">jmwang@knu.ac.kr</a>
+  <div class="footer-details">
+    <div lang="ko">
+      <strong>지도교수:</strong> 왕재민 교수<br>
+      경북대학교 금속재료공학과<br>
+      대구광역시 북구 대학로 80, 41566, 대한민국
+    </div>
+    <div lang="en">
+      <strong>Principal Investigator:</strong> Prof. Jaemin Wang<br>
+      Department of Materials Science and Metallurgical Engineering<br>
+      Kyungpook National University<br>
+      80 Daehakro, Bukgu, Daegu 41566, Republic of Korea
+    </div>
   </div>
 
-  <div style="margin-top: 0.6rem;">
-    <a href="https://scholar.google.com/citations?user=16pIavIAAAAJ&hl=en" target="_blank">Google Scholar</a> ·
-    <a href="https://orcid.org/0000-0002-6845-6907" target="_blank">ORCID</a> ·
-    <a href="https://www.researchgate.net/profile/Jaemin-Wang" target="_blank">ResearchGate</a>
+  <div class="footer-email">
+    <span lang="ko">이메일</span> / <span lang="en">Email:</span>
+    <a href="mailto:jmwang@knu.ac.kr">jmwang@knu.ac.kr</a>
   </div>
 
-  <div style="margin-top: 0.8rem; font-size: 0.85rem;">
-    © AIM Lab
+  <div class="footer-profiles" lang="en">
+    <a href="https://scholar.google.com/citations?user=16pIavIAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a> ·
+    <a href="https://orcid.org/0000-0002-6845-6907" target="_blank" rel="noopener noreferrer">ORCID</a> ·
+    <a href="https://www.researchgate.net/profile/Jaemin-Wang" target="_blank" rel="noopener noreferrer">ResearchGate</a>
+  </div>
+
+  <div class="footer-copyright">
+    © <span lang="en">AIM Lab</span> · <span lang="ko">전산재료 연구실</span>
   </div>
 </footer>
 

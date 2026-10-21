@@ -39,6 +39,11 @@ GitHub Actions의 `Check static site`는 JSON과 HTML이 불일치하면 실패�
 
 ## 검색 노출 확인
 
+- 공통 푸터에 왕재민 교수·AIM Lab의 공식 웹사이트임을 한영 병기로 표시합니다.
+  각 HTML의 제목·설명과 Open Graph·Twitter Card 정보에도 사이트 정체성을 반영합니다.
+  영문·국문 홈의 JSON-LD는 같은 `WebSite`, `Person`, `Organization` 식별자를 사용해
+  사이트·왕재민 교수·연구실의 관계와 기존 외부 프로필을 연결합니다.
+  공식 웹사이트 문구나 구조화 데이터가 Google의 공식 인증 또는 특정 검색 표시를 보장하지는 않습니다.
 - 사이트맵: https://aimlab.knu.ac.kr/sitemap.xml — 실제 웹페이지 10개만 포함합니다.
 - 영문 홈의 대표 URL은 `/`입니다. `/index.html`은 같은 페이지이며 canonical로 통합합니다.
 - JSON 파일은 공개 데이터이며 검색 노출 목표가 아닙니다. 사이트맵에서 제외하지만
